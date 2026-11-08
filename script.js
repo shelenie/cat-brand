@@ -3,7 +3,22 @@
   const svg = $('cat'), panel = $('panel');
   const bubble = $('bubble'), title = $('title'), lead = $('lead');
   const pupils = [$('pupilL'), $('pupilR')];
-  const bars = [...document.querySelectorAll('.meter__bars i')];
+  const meter = $('meter'), meterTitle = $('meterTitle'), meterSub = $('meterSub'), meterFill = $('meterFill');
+  const METER = [
+    ['Терпець урвався', 'кнопка зліва. Він почекає'],
+    ['Терпець кота', 'останнє попередження'],
+    ['Терпець кота', 'вносить вас у CRM'],
+    ['Терпець кота', 'дивиться косо'],
+    ['Терпець кота', 'уже щось помітив'],
+    ['Терпець кота', 'ще є. Можете перевірити'],
+  ];
+  function showMeter([t, s], left, level, hit) {
+    meter.classList.add('swap');
+    setTimeout(() => { meterTitle.textContent = t; meterSub.textContent = s; meter.classList.remove('swap'); }, calm ? 0 : 200);
+    meterFill.style.setProperty('--left', left);
+    meter.dataset.level = level;
+    if (hit && !calm) { meter.classList.remove('hit'); void meter.offsetWidth; meter.classList.add('hit'); }
+  }
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const COPY = {
@@ -45,13 +60,14 @@
       title.classList.remove('swap'); lead.classList.remove('swap');
     }, calm ? 0 : 220);
     state = next;
+    if (next === 'work') showMeter(['Терпець відновлено', 'кіт на робочому місці'], 1, 'ok', false);
   }
   function touchCat(zone) {
     lastTouch = performance.now();
     if (state === 'work') return say(pick('work'));
     if (state === 'ready') return say(pick('ready'));
     patience = Math.max(0, patience - 1);
-    bars.forEach((b, i) => b.classList.toggle('off', i >= patience));
+    showMeter(METER[patience], patience / 5, patience <= 1 ? 'low' : 'ok', true);
     if (patience === 0) {
       setCopy('ready');
       say('Усе. Терпець закінчився.', 3600);

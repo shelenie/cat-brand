@@ -88,21 +88,22 @@
 
     <div class="side">
       <div class="meter" id="meter" role="status">
-        <span class="meter__label">Терпець кота</span>
-        <span class="meter__bars"><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="meter__title" id="meterTitle">Терпець кота</span>
+        <span class="meter__sub" id="meterSub">ще є. Можете перевірити</span>
+        <span class="meter__bar" aria-hidden="true"><i id="meterFill"></i></span>
       </div>
       <div class="cards">
         <a class="card" href="#directions">
           <span class="card__title">Що я роблю</span>
           <span class="card__text">шість напрямів без зайвої магії</span>
           <span class="card__go">Go</span>
-          <span class="card__cat" aria-hidden="true"></span>
+          <span class="card__cat card__cat--side" aria-hidden="true"></span>
         </a>
         <a class="card" href="#work">
-          <span class="card__title">Що вже зроблено</span>
+          <span class="card__title">Що вже робила</span>
           <span class="card__text">кіт стежив особисто</span>
           <span class="card__go">Go</span>
-          <span class="card__cat card__cat--alt" aria-hidden="true"></span>
+          <span class="card__cat card__cat--front" aria-hidden="true"></span>
         </a>
       </div>
     </div>
