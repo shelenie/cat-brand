@@ -30,19 +30,16 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 .cat { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; pointer-events: auto; display: block; }
 #zones > * { cursor: pointer; outline: none; }
-#rig { transform: scale(1.05); transform-origin: 695px 768px; will-change: transform; }
+#head { transform-origin: 695px 520px; will-change: transform; }
 .scrim { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(27, 66, 92, .58), rgba(27, 66, 92, 0) 42%); }
 
-#react.squish { animation: squish .42s cubic-bezier(.3, 1.6, .5, 1); transform-origin: 695px 700px; }
-#react.shake { animation: shake .4s linear; transform-origin: 695px 700px; }
-#react.nod { animation: nod .5s ease; transform-origin: 695px 700px; }
-@keyframes squish { 30% { transform: scale(1.04, .95); } 65% { transform: scale(.98, 1.03); } }
-@keyframes shake { 20% { transform: rotate(-1.6deg); } 45% { transform: rotate(1.6deg); } 70% { transform: rotate(-.8deg); } }
-@keyframes nod { 40% { transform: translateY(14px); } }
+#react.squish { animation: squish .42s ease; transform-origin: 695px 520px; }
+#react.shake { animation: shake .42s ease; transform-origin: 695px 520px; }
+#react.nod { animation: nod .46s ease; transform-origin: 695px 520px; }
+@keyframes squish { 40% { transform: scale(1.012, .988); } }
+@keyframes shake { 25% { transform: rotate(-1.1deg); } 65% { transform: rotate(1.1deg); } }
+@keyframes nod { 45% { transform: translateY(5px) rotate(.4deg); } }
 
-#glasses { fill: rgba(255, 255, 255, .1); stroke: var(--navy); stroke-width: 11; stroke-linecap: round; transform: translateY(-620px); opacity: 0; transition: transform .75s cubic-bezier(.3, 1.45, .5, 1), opacity .1s; }
-#glasses path { fill: none; }
-[data-state="work"] #glasses { transform: none; opacity: 1; }
 
 .top { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .logo { font: 900 18px var(--display); text-decoration: none; letter-spacing: -.02em; }

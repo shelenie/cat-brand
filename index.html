@@ -17,51 +17,39 @@
 <section class="hero" id="top">
   <div class="panel" id="panel">
 
-    <svg class="cat" id="cat" viewBox="0 0 1376 768" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Пухнастий кремовий кіт у синьому светрі суворо стежить за курсором">
+    <svg class="cat" id="cat" viewBox="0 0 1376 768" preserveAspectRatio="xMidYMin slice" role="img" aria-label="Пухнастий кремовий кіт у синьому светрі суворо стежить за курсором">
       <defs>
         <path id="eyeShapeL" d="M556 322 C566 316 582 318 595 321 L650 334 C648 349 636 356 622 356 C604 355 576 352 563 342 C558 336 555 328 556 322Z"/>
         <path id="eyeShapeR" d="M741 331 L798 321 C810 318 826 317 833 323 C833 331 828 339 822 345 C808 353 786 357 769 358 C752 357 742 347 741 331Z"/>
         <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.5"/></filter>
-        <filter id="shade" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4"/></filter>
         <mask id="maskL" maskUnits="userSpaceOnUse" x="0" y="0" width="1376" height="768"><use href="#eyeShapeL" fill="#fff" filter="url(#soft)"/></mask>
         <mask id="maskR" maskUnits="userSpaceOnUse" x="0" y="0" width="1376" height="768"><use href="#eyeShapeR" fill="#fff" filter="url(#soft)"/></mask>
-        <clipPath id="irisL"><path d="M595 322 L650 335 C648 349 636 355 622 355 C606 355 595 342 595 322Z"/></clipPath>
-        <clipPath id="irisR"><path d="M741 331 L798 321 C799 342 787 357 769 357 C752 357 742 347 741 331Z"/></clipPath>
+        <path id="irisLPath" d="M595 322 L650 335 C648 349 636 355 622 355 C606 355 595 342 595 322Z"/>
+        <path id="irisRPath" d="M741 331 L798 321 C799 342 787 357 769 357 C752 357 742 347 741 331Z"/>
+        <filter id="gap" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.5"/></filter>
+        <clipPath id="irisL"><use href="#irisLPath"/></clipPath>
+        <clipPath id="irisR"><use href="#irisRPath"/></clipPath>
         <linearGradient id="scleraL" x1="556" x2="650" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8f7d58"/><stop offset=".38" stop-color="#bdb192"/><stop offset="1" stop-color="#cfc9b3"/></linearGradient>
         <linearGradient id="scleraR" x1="833" x2="741" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9d8a62"/><stop offset=".38" stop-color="#c9bfa2"/><stop offset="1" stop-color="#d8d3bf"/></linearGradient>
-        <radialGradient id="irisFill"><stop offset="0" stop-color="#0a1c38"/><stop offset=".55" stop-color="#123f78"/><stop offset="1" stop-color="#2b86c8"/></radialGradient>
       </defs>
 
-      <g id="rig">
+      <image href="assets/body.jpg" width="1376" height="768"/>
+      <g id="head">
         <g id="react">
-          <image href="assets/cat.jpg" width="1376" height="768"/>
-
+          <image href="assets/head.webp" width="1376" height="768"/>
           <g mask="url(#maskL)">
-            <use href="#eyeShapeL" fill="url(#scleraL)"/>
+            <use href="#irisLPath" fill="url(#scleraL)" stroke="url(#scleraL)" stroke-width="12" filter="url(#gap)"/>
             <g id="pupilL">
-              <circle cx="622" cy="327" r="30" fill="url(#irisFill)"/>
+              <circle cx="622" cy="327" r="29" fill="#123f78"/>
               <g clip-path="url(#irisL)"><image href="assets/cat.jpg" width="1376" height="768"/></g>
             </g>
-            <path d="M550 314 L595 317 L656 332" fill="none" stroke="#3b2b16" stroke-width="15" opacity=".62" filter="url(#shade)"/>
-            <path id="lidL" d="M540 240 H680 V346 L650 334 L595 321 C582 318 566 316 550 320 Z" fill="#dcc9a4" filter="url(#soft)"/>
           </g>
-
           <g mask="url(#maskR)">
-            <use href="#eyeShapeR" fill="url(#scleraR)"/>
+            <use href="#irisRPath" fill="url(#scleraR)" stroke="url(#scleraR)" stroke-width="12" filter="url(#gap)"/>
             <g id="pupilR">
-              <circle cx="769" cy="328" r="30" fill="url(#irisFill)"/>
+              <circle cx="769" cy="328" r="29" fill="#123f78"/>
               <g clip-path="url(#irisR)"><image href="assets/cat.jpg" width="1376" height="768"/></g>
             </g>
-            <path d="M735 334 L798 318 L840 318" fill="none" stroke="#3b2b16" stroke-width="15" opacity=".62" filter="url(#shade)"/>
-            <path id="lidR" d="M725 240 H845 V320 C826 316 810 318 798 321 L741 331 L725 346 Z" fill="#dcc9a4" filter="url(#soft)"/>
-          </g>
-
-          <g id="glasses">
-            <circle cx="612" cy="338" r="70"/>
-            <circle cx="778" cy="338" r="70"/>
-            <path d="M682 326 Q695 312 708 326"/>
-            <path d="M542 326 L498 300"/>
-            <path d="M848 326 L892 300"/>
           </g>
         </g>
       </g>

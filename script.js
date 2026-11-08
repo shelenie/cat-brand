@@ -1,10 +1,10 @@
 (() => {
   const $ = (id) => document.getElementById(id);
-  const svg = $('cat'), panel = $('panel'), rig = $('rig'), react = $('react');
+  const svg = $('cat'), panel = $('panel'), head = $('head'), react = $('react');
   const bubble = $('bubble'), yarn = $('yarn'), title = $('title'), lead = $('lead');
   const pupils = [
-    { el: $('pupilL'), lid: $('lidL'), x: 622, y: 332 },
-    { el: $('pupilR'), lid: $('lidR'), x: 769, y: 333 },
+    { el: $('pupilL') },
+    { el: $('pupilR') },
   ];
   const bars = [...document.querySelectorAll('.meter__bars i')];
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -110,7 +110,6 @@
   /* ---------- Куди дивиться кіт ---------- */
   const pointer = { x: innerWidth * 0.3, y: innerHeight * 0.4, seen: false };
   const eye = { x: 0, y: 0 }, tilt = { x: 0, y: 0 };
-  let blinkUntil = 0, nextBlink = performance.now() + 3000;
 
   /* ---------- Клубок ---------- */
   const SIZE = () => yarn.offsetWidth;
@@ -203,22 +202,16 @@
 
     const dx = target.x - 695, dy = target.y - 332, dist = Math.hypot(dx, dy) || 1;
     const k = Math.min(1, dist / 340);
-    eye.x += ((dx / dist) * 13 * k - eye.x) * 0.16;
-    eye.y += ((dy / dist) * 7 * k - eye.y) * 0.16;
+    eye.x += ((dx / dist) * 5.5 * k - eye.x) * 0.12;
+    eye.y += ((dy / dist) * 1.6 * k - eye.y) * 0.12;
     pupils.forEach((p) => p.el.setAttribute('transform', `translate(${eye.x.toFixed(2)} ${eye.y.toFixed(2)})`));
 
     const tx = Math.max(-1, Math.min(1, dx / 700)), ty = Math.max(-1, Math.min(1, dy / 500));
     tilt.x += (tx - tilt.x) * 0.07;
     tilt.y += (ty - tilt.y) * 0.07;
     if (!calm) {
-      const breathe = Math.sin(now / 1500) * 0.0035;
-      rig.style.transform = `translate(${(tilt.x * 11).toFixed(2)}px, ${(tilt.y * 6).toFixed(2)}px) rotate(${(tilt.x * 1.5).toFixed(3)}deg) scale(${(1.05 + breathe).toFixed(4)})`;
+      head.style.transform = `translate(${(tilt.x * 10).toFixed(2)}px, ${(tilt.y * 4).toFixed(2)}px) rotate(${(tilt.x * 3.2).toFixed(3)}deg)`;
     }
-
-    if (now > nextBlink) { blinkUntil = now + 130; nextBlink = now + 2400 + Math.random() * 3600; }
-    const squint = state === 'work' ? 0 : (5 - patience) * 1.6;
-    const lid = now < blinkUntil ? 40 : -4 + squint;
-    pupils.forEach((p) => p.lid.setAttribute('transform', `translate(0 ${lid})`));
 
     if (state !== 'work' && now - lastTouch > 11000 && scrollY < 200) { lastTouch = now; say(pick('idle')); }
     requestAnimationFrame(frame);
