@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=35">
 </head>
 <body data-state="play">
 
@@ -63,23 +63,25 @@
     </svg>
 
     <div class="scrim" aria-hidden="true"></div>
+    <div class="glass" aria-hidden="true"><i></i><i></i><i></i></div>
 
     <header class="top">
-      <a class="logo" href="#top">Olena Shepel</a>
+      <a class="logo" href="#top"><img class="logo__ava" src="assets/olena.webp" alt="" width="40" height="40">Olena Shepel</a>
       <nav class="pills" aria-label="Головна навігація">
-        <a href="#about">Про мене</a>
         <a href="#directions">Напрями</a>
         <a href="#work">Роботи</a>
+        <a href="#about">Про мене</a>
         <a href="#contact">Контакт</a>
+        <a class="tg" href="https://t.me/shelenie" target="_blank" rel="noopener noreferrer" aria-label="Написати в Telegram"><svg viewBox="4.9 6.4 13 13" aria-hidden="true"><path fill="currentColor" d="M16.906 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
       </nav>
     </header>
 
     <div class="copy">
-      <p class="eyebrow"><span class="eyebrow__mark" aria-hidden="true">✓</span>Олена Шепель · AI, автоматизація, веб</p>
-      <h1 id="title">Кота<br>не чіпати.</h1>
+      <p class="eyebrow"><svg class="eyebrow__seal" viewBox="0 0 28 28" aria-hidden="true"><path d="M14.00 0.30L14.70 0.60L15.32 1.41L15.84 2.41L16.28 3.25L16.77 3.66L17.40 3.55L18.21 3.04L19.15 2.43L20.09 2.05L20.85 2.14L21.31 2.75L21.44 3.75L21.39 4.88L21.35 5.84L21.57 6.43L22.16 6.65L23.12 6.61L24.25 6.56L25.25 6.69L25.86 7.15L25.95 7.91L25.57 8.85L24.96 9.79L24.45 10.60L24.34 11.23L24.75 11.72L25.59 12.16L26.59 12.68L27.40 13.30L27.70 14.00L27.40 14.70L26.59 15.32L25.59 15.84L24.75 16.28L24.34 16.77L24.45 17.40L24.96 18.21L25.57 19.15L25.95 20.09L25.86 20.85L25.25 21.31L24.25 21.44L23.12 21.39L22.16 21.35L21.57 21.57L21.35 22.16L21.39 23.12L21.44 24.25L21.31 25.25L20.85 25.86L20.09 25.95L19.15 25.57L18.21 24.96L17.40 24.45L16.77 24.34L16.28 24.75L15.84 25.59L15.32 26.59L14.70 27.40L14.00 27.70L13.30 27.40L12.68 26.59L12.16 25.59L11.72 24.75L11.23 24.34L10.60 24.45L9.79 24.96L8.85 25.57L7.91 25.95L7.15 25.86L6.69 25.25L6.56 24.25L6.61 23.12L6.65 22.16L6.43 21.57L5.84 21.35L4.88 21.39L3.75 21.44L2.75 21.31L2.14 20.85L2.05 20.09L2.43 19.15L3.04 18.21L3.55 17.40L3.66 16.77L3.25 16.28L2.41 15.84L1.41 15.32L0.60 14.70L0.30 14.00L0.60 13.30L1.41 12.68L2.41 12.16L3.25 11.72L3.66 11.23L3.55 10.60L3.04 9.79L2.43 8.85L2.05 7.91L2.14 7.15L2.75 6.69L3.75 6.56L4.88 6.61L5.84 6.65L6.43 6.43L6.65 5.84L6.61 4.88L6.56 3.75L6.69 2.75L7.15 2.14L7.91 2.05L8.85 2.43L9.79 3.04L10.60 3.55L11.23 3.66L11.72 3.25L12.16 2.41L12.68 1.41L13.30 0.60Z" fill="#ffff75"/><path d="M9 14.4l3.4 3.4 6.6-7" fill="none" stroke="#2a2547" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Олена Шепель · AI, автоматизація, веб · <b>власниця цього кота</b></span></p>
+      <h1 id="title">Кота<br>не<br>чіпати.</h1>
       <p class="lead" id="lead">Він керівник відділу автоматизації і зараз дуже зайнятий. Будь ласка, просто пройдіть повз.</p>
       <div class="actions">
-        <button class="btn btn--main" id="toWork"><span id="toWorkLabel">Гаразд, до діла</span> <span aria-hidden="true">→</span></button>
+        <button class="btn btn--main" id="toWork"><span id="toWorkLabel">Гаразд, до діла</span> <svg class="btn__arrow" viewBox="0 0 64 40" aria-hidden="true"><path d="M3 20H61M42 3C45 11 52 17 61 20C52 23 45 29 42 37" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <a class="btn btn--ghost" href="#contact"><span class="btn__dot" aria-hidden="true">▶</span>Обговорити<br>задачу</a>
       </div>
     </div>
@@ -97,23 +99,24 @@
           <span class="card__title">Що я роблю</span>
           <span class="card__text">шість напрямів без зайвої магії</span>
           <span class="card__go">Go</span>
-          <span class="card__cat card__cat--side" aria-hidden="true"></span>
+          <span class="card__cat card__cat--top" aria-hidden="true"></span>
+          <span class="card__haze" aria-hidden="true"></span>
         </a>
         <a class="card" href="#work">
           <span class="card__title">Що вже робила</span>
           <span class="card__text">кіт стежив особисто</span>
           <span class="card__go">Go</span>
-          <span class="card__cat card__cat--front" aria-hidden="true"></span>
+          <span class="card__cat card__cat--profile" aria-hidden="true"></span>
         </a>
       </div>
     </div>
 
     <button class="spin" id="spin" aria-label="Перейти до діла">
-      <svg viewBox="0 0 140 140" aria-hidden="true">
+      <svg class="spin__ring" viewBox="0 0 140 140" aria-hidden="true">
         <defs><path id="circ" d="M70 70 m-52 0 a52 52 0 1 1 104 0 a52 52 0 1 1 -104 0"/></defs>
-        <text class="spin__text"><textPath href="#circ">ДО ДІЛА · ДО ДІЛА · ДО ДІЛА · ДО ДІЛА ·</textPath></text>
+        <text class="spin__text" id="spinText"><textPath href="#circ">ДО ДІЛА&nbsp;·&nbsp;ДО ДІЛА&nbsp;·&nbsp;ДО ДІЛА&nbsp;·&nbsp;ДО ДІЛА&nbsp;·&nbsp;ДО ДІЛА&nbsp;·&nbsp;</textPath></text>
       </svg>
-      <span aria-hidden="true">↗</span>
+      <svg class="spin__arrow" id="spinArrow" viewBox="0 0 64 40" aria-hidden="true"><path d="M3 20H61M42 3C45 11 52 17 61 20C52 23 45 29 42 37" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
 
     <div class="bubble" id="bubble" aria-live="polite"></div>
@@ -191,6 +194,7 @@
 
 <footer class="foot"><span>© Olena Shepel</span><a href="#top">Повернутися до кота ↑</a></footer>
 
-<script src="script.js"></script>
+<button class="to-top" id="toTop" type="button" aria-label="Прокрутити вгору"><svg viewBox="0 0 64 40" aria-hidden="true"><path d="M3 20H61M42 3C45 11 52 17 61 20C52 23 45 29 42 37" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<script src="script.js?v=35"></script>
 </body>
 </html>
