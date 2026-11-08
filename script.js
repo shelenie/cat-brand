@@ -235,15 +235,20 @@
   /* ---------- Роботи: заголовок по літерах, поява, нахил ---------- */
   const work = $('work'), workGrid = $('workGrid'), workTitle = $('workTitle');
   const cases = [...workGrid.querySelectorAll('.case')];
-  let coverQueued = false;
-  function cover() {
-    coverQueued = false;
-    const p = Math.max(0, Math.min(1, 1 - work.getBoundingClientRect().top / innerHeight));
-    work.style.setProperty('--cover', p.toFixed(3));
+  // Паралакс фону: шар рухається повільніше за картки
+  const workBg = $('workBg');
+  let parallaxQueued = false;
+  function parallax() {
+    parallaxQueued = false;
+    const r = work.getBoundingClientRect();
+    const p = Math.max(0, Math.min(1, (innerHeight - r.top) / (innerHeight + r.height)));
+    workBg.style.setProperty('--py', ((p - .5) * .6 * r.height).toFixed(1) + 'px');
   }
-  addEventListener('scroll', () => { if (!coverQueued) { coverQueued = true; requestAnimationFrame(cover); } }, { passive: true });
-  addEventListener('resize', cover);
-  cover();
+  if (!calm) {
+    addEventListener('scroll', () => { if (!parallaxQueued) { parallaxQueued = true; requestAnimationFrame(parallax); } }, { passive: true });
+    addEventListener('resize', parallax);
+    parallax();
+  }
 
   let c = 0;
   const label = workTitle.textContent;
@@ -264,6 +269,41 @@
     }));
     cases.forEach((el) => liveArt.observe(el));
   } else cases.forEach((el) => el.classList.add('live'));
+
+  // Роботи: проєкт відкривається на весь екран
+  const caseView = $('caseView'), caseViewIn = $('caseViewIn'), caseClose = $('caseClose');
+  let openCase = null;
+  function fromCard(card) {
+    const r = card.getBoundingClientRect();
+    return 'translate(' + r.left + 'px, ' + r.top + 'px) scale(' + (r.width / innerWidth) + ', ' + (r.height / innerHeight) + ')';
+  }
+  function showCase(card) {
+    openCase = card;
+    caseViewIn.innerHTML = card.innerHTML;
+    caseViewIn.querySelectorAll('video').forEach((v) => { v.controls = true; });
+    document.documentElement.style.overflow = 'hidden';
+    caseView.hidden = false;
+    caseView.scrollTop = 0;
+    caseClose.focus();
+    if (!calm) caseView.animate([{ transform: fromCard(card), opacity: .4 }, { transform: 'none', opacity: 1 }], { duration: 420, easing: 'cubic-bezier(.2, 1, .3, 1)' });
+  }
+  function hideCase() {
+    if (!openCase) return;
+    const card = openCase;
+    openCase = null;
+    const done = () => { caseView.hidden = true; caseViewIn.innerHTML = ''; document.documentElement.style.overflow = ''; card.focus({ preventScroll: true }); };
+    if (calm) return done();
+    caseView.animate([{ transform: 'none', opacity: 1 }, { transform: fromCard(card), opacity: 0 }], { duration: 280, easing: 'ease-in', fill: 'forwards' }).finished.then((a) => { done(); a.cancel(); });
+  }
+  cases.forEach((card) => {
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.addEventListener('click', () => showCase(card));
+    card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showCase(card); } });
+  });
+  caseClose.addEventListener('click', hideCase);
+  caseView.addEventListener('click', (e) => { if (e.target === caseView || e.target === caseViewIn) hideCase(); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') hideCase(); });
 
   addEventListener('resize', () => { placeBubble(); placeSpin(); });
   placeBubble();

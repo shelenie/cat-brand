@@ -1,0 +1,113 @@
+/* ==========================================================
+   Глобальні стилі сайту
+   Кольори, шрифти, радіуси, тіні — міняти тут, і зміниться всюди.
+   ========================================================== */
+:root {
+  /* Масштаб */
+  --u: min(1vw, 1.78vh);
+
+  /* Шрифти */
+  --display: "Unbounded", "Arial Black", sans-serif;
+  --text: "Nunito", "Segoe UI", sans-serif;
+
+  /* Основні кольори */
+  --ink: #13334a;
+  --ink-rgb: 19, 51, 74;
+  --cream: #f7f6ef;
+  --cream-rgb: 247, 246, 239;
+  --yellow: #ffff75;
+  --yellow-rgb: 255, 255, 117;
+  --white: #fff;
+
+  /* Блакитні відтінки */
+  --teal: #548da3;
+  --teal-deep: #35708a;
+  --teal-card: #5b8ea1;
+  --teal-card-rgb: 91, 142, 161;
+  --mist: #c3d6de;
+  --aqua-rgb: 132, 203, 218;
+  --lagoon-rgb: 62, 120, 145;
+  --deep-rgb: 27, 66, 92;
+
+  /* Теплі відтінки */
+  --sand: #efe6d6;
+  --veil: rgba(250, 246, 238, .86);
+  --warn: #ff9a76;
+
+  /* Градієнти */
+  --grad-sky: linear-gradient(-45deg, rgba(216, 235, 243, .94), rgba(196, 226, 240, .94) 25%, rgba(222, 238, 245, .94) 50%, rgba(251, 243, 232, .94) 70%, rgba(208, 231, 242, .94));
+  --grad-cat-card: linear-gradient(180deg, rgb(112, 152, 159), rgb(128, 169, 175) 50%, rgb(175, 205, 207));
+
+  /* Скруглення: тільки ці значення */
+  --r-section: 38px;    /* секції */
+  --r-section-m: 28px;  /* секції на телефоні */
+  --r-pill: 99px;       /* кнопки */
+  --r-card: 16px;       /* картки */
+  --r-note: 14px;       /* примітки кота */
+  --r-tip: 4px;         /* гострий кут примітки, виділення в тексті */
+  --r-small: 8px;       /* плашки, медіа всередині карток */
+
+  /* Тіні */
+  --shadow-cool: 0 1px 2px rgba(40, 70, 100, .08), 0 3px 8px rgba(40, 70, 100, .08);
+  --shadow-warm: 0 1px 2px rgba(90, 60, 30, .1), 0 3px 8px rgba(90, 60, 30, .1);
+  --shadow-float: 0 10px 26px rgba(var(--ink-rgb), .22);
+}
+
+/* ---------- Основа ---------- */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--cream); color: var(--ink); font: 400 18px/1.55 var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+h1, h2, h3, p { margin: 0; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; }
+:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+/* ---------- Типографіка ---------- */
+h1 { font: 900 clamp(38px, calc(var(--u) * 5.15), 84px)/.98 var(--display); text-transform: uppercase; letter-spacing: -.035em; margin: 18px 0 46px; transition: opacity .25s, transform .25s; }
+h2 { font: 900 clamp(28px, 3.7vw, 56px)/1.04 var(--display); letter-spacing: -.03em; max-width: 17em; }
+h3 { font-weight: 800; font-size: 23px; line-height: 1.18; margin-bottom: 8px; }
+.note { max-width: 22em; font-size: 16px; line-height: 1.35; }
+.big { font-size: clamp(19px, 1.8vw, 26px); line-height: 1.35; font-weight: 600; max-width: 34em; margin-top: 20px; }
+
+/* ---------- Каркас секцій ---------- */
+.section { scroll-margin-top: 0; margin: 0; padding: clamp(40px, 6vw, 88px) clamp(22px, 5vw, 72px); border-radius: 0; }
+.section__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px 40px; margin-bottom: 38px; }
+
+/* ---------- Кнопки ---------- */
+.btn { display: inline-flex; align-items: center; gap: 14px; border-radius: var(--r-pill); font-weight: 800; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: transform .2s; }
+.btn:hover { transform: translateY(-3px); }
+.btn--main { background: var(--ink); color: var(--cream); padding: clamp(14px, calc(var(--u) * 1.35), 20px) clamp(20px, calc(var(--u) * 2), 30px); font-size: clamp(13px, calc(var(--u) * 1.2), 18px); white-space: nowrap; }
+.btn--ghost { padding: 7px clamp(16px, calc(var(--u) * 1.8), 26px) 7px 7px; border: 1.5px solid rgba(var(--cream-rgb), .75); font-size: clamp(11px, calc(var(--u) * .95), 14px); line-height: 1.05; }
+.btn__dot { width: clamp(36px, calc(var(--u) * 3.3), 48px); height: clamp(36px, calc(var(--u) * 3.3), 48px); flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--yellow); color: var(--ink); font-size: 14px; }
+.btn--yellow { background: var(--yellow); color: var(--ink); padding: 20px 32px; font-size: 18px; }
+[data-state="ready"] .btn--main { animation: pulse 1.1s ease-in-out infinite; background: var(--yellow); color: var(--ink); }
+@keyframes pulse { 50% { transform: scale(1.06); box-shadow: 0 0 0 12px rgba(var(--yellow-rgb), .22); } }
+.btn__arrow { width: 28px; flex: none; }
+@media (max-width: 900px) {
+  .btn--main { font-size: 18px; padding: 20px 30px; }
+  .btn--ghost { font-size: 14px; }
+  .btn__dot { width: 48px; height: 48px; }
+  h1 { font-size: clamp(38px, 11.5vw, 66px); }
+}
+
+/* ---------- Кільце-курсор ---------- */
+.cursor { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .cursor { display: block; position: fixed; inset: 0 auto auto 0; z-index: 50; pointer-events: none; }
+  .cursor i { position: fixed; left: 0; top: 0; border-radius: 50%; will-change: transform; }
+  .cursor__dot { width: 12px; height: 12px; margin: -6px; background: var(--yellow); box-shadow: 0 0 0 1.5px rgba(var(--ink-rgb), .55); }
+  .cursor__ring { width: 56px; height: 56px; margin: -28px; border: 2px solid var(--cream); mix-blend-mode: difference; }
+  .cursor.big .cursor__ring { width: 84px; height: 84px; margin: -42px; }
+}
+
+/* Кнопка «вгору» зі стрілкою як на головній кнопці */
+.to-top { position: fixed; right: clamp(16px, 2vw, 28px); bottom: clamp(16px, 2vw, 28px); z-index: 40; width: 56px; height: 56px; border: 0; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--cream); box-shadow: 0 0 0 1.5px rgba(var(--cream-rgb), .55), var(--shadow-float); cursor: pointer; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .3s, transform .3s, visibility .3s, background .2s, color .2s; }
+.to-top.is-shown { opacity: 1; visibility: visible; transform: none; }
+.to-top svg { width: 28px; transform: rotate(-90deg); }
+@media (hover: hover) { .to-top:hover { background: var(--yellow); color: var(--ink); } }
+@media (max-width: 900px) { .to-top { width: 48px; height: 48px; } .to-top svg { width: 24px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
