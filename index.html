@@ -75,7 +75,7 @@
     </header>
 
     <div class="copy">
-      <p class="eyebrow"><img class="eyebrow__photo" src="assets/olena.webp" alt="" width="40" height="40">Олена Шепель · AI, автоматизація, веб</p>
+      <p class="eyebrow"><span class="eyebrow__mark" aria-hidden="true">✓</span>Олена Шепель · AI, автоматизація, веб</p>
       <h1 id="title">Кота<br>не чіпати.</h1>
       <p class="lead" id="lead">Він керівник відділу автоматизації і зараз дуже зайнятий. Будь ласка, просто пройдіть повз.</p>
       <div class="actions">
@@ -96,23 +96,23 @@
           <span class="card__title">Що я роблю</span>
           <span class="card__text">шість напрямів без зайвої магії</span>
           <span class="card__go">Go</span>
-          <span class="card__cat card__cat--side" aria-hidden="true"></span>
+          <span class="card__cat" aria-hidden="true"></span>
         </a>
         <a class="card" href="#work">
-          <span class="card__title">Що вже робила</span>
+          <span class="card__title">Що вже зроблено</span>
           <span class="card__text">кіт стежив особисто</span>
           <span class="card__go">Go</span>
-          <span class="card__cat card__cat--front" aria-hidden="true"></span>
+          <span class="card__cat card__cat--alt" aria-hidden="true"></span>
         </a>
       </div>
     </div>
 
     <button class="spin" id="spin" aria-label="Перейти до діла">
-      <svg class="spin__ring" viewBox="0 0 140 140" aria-hidden="true">
-        <defs><path id="circ" d="M70 70 m-54 0 a54 54 0 1 1 108 0 a54 54 0 1 1 -108 0"/></defs>
-        <text class="spin__text" id="spinText"><textPath href="#circ">ДО ДІЛА&nbsp;·&nbsp;ДО ДІЛА&nbsp;·&nbsp;ДО ДІЛА&nbsp;·&nbsp;ДО ДІЛА&nbsp;·&nbsp;</textPath></text>
+      <svg viewBox="0 0 140 140" aria-hidden="true">
+        <defs><path id="circ" d="M70 70 m-52 0 a52 52 0 1 1 104 0 a52 52 0 1 1 -104 0"/></defs>
+        <text class="spin__text"><textPath href="#circ">ДО ДІЛА · ДО ДІЛА · ДО ДІЛА · ДО ДІЛА ·</textPath></text>
       </svg>
-      <svg class="spin__arrow" id="spinArrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M4 36 36 4M14 4h22v22" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>
+      <span aria-hidden="true">↗</span>
     </button>
 
     <div class="bubble" id="bubble" aria-live="polite"></div>
@@ -162,7 +162,6 @@
   </section>
 
   <section class="section split" id="about">
-    <figure class="portrait"><img src="assets/olena.webp" alt="Олена Шепель біля вікна у світлій кімнаті" loading="lazy"></figure>
     <div>
       <h2>Про мене</h2>
       <p class="big">Працюю на перетині AI, автоматизації, інтеграцій, даних і веброзробки. Підбираю інструменти під задачу, а не навпаки.</p>

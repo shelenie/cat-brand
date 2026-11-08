@@ -1,9 +1,9 @@
 (() => {
   const $ = (id) => document.getElementById(id);
-  const svg = $('cat'), panel = $('panel'), bubble = $('bubble'), title = $('title'), lead = $('lead');
+  const svg = $('cat'), panel = $('panel');
+  const bubble = $('bubble'), title = $('title'), lead = $('lead');
   const pupils = [$('pupilL'), $('pupilR')];
-  const faces = [...document.querySelectorAll('.meter__bars i')];
-  const spin = $('spin'), arrow = $('spinArrow'), spinText = $('spinText');
+  const bars = [...document.querySelectorAll('.meter__bars i')];
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const COPY = {
@@ -21,11 +21,14 @@
     idle: ['Ви ще тут?', 'Я все бачу.', 'Можна й погортати сайт.'],
   };
   const used = {};
-  const pick = (k) => LINES[k][(used[k] = (used[k] ?? -1) + 1) % LINES[k].length];
+  const pick = (k) => {
+    const list = LINES[k], i = (used[k] = (used[k] ?? -1) + 1) % list.length;
+    return list[i];
+  };
 
   let state = 'play', patience = 5, lastTouch = performance.now();
 
-  /* ---------- Репліки ---------- */
+  /* ---------- Репліки й реакції ---------- */
   let bubbleTimer;
   function say(text, ms = 2600) {
     bubble.textContent = text;
@@ -48,7 +51,7 @@
     if (state === 'work') return say(pick('work'));
     if (state === 'ready') return say(pick('ready'));
     patience = Math.max(0, patience - 1);
-    faces.forEach((f, i) => f.classList.toggle('off', i >= patience));
+    bars.forEach((b, i) => b.classList.toggle('off', i >= patience));
     if (patience === 0) {
       setCopy('ready');
       say('Усе. Терпець закінчився.', 3600);
@@ -62,10 +65,8 @@
       return;
     }
     setCopy('work');
-    if (scroll) {
-      say('Так. Слухаю.', 2200);
-      setTimeout(() => $('directions').scrollIntoView(), calm ? 0 : 1500);
-    }
+    say('Так. Слухаю.', 2200);
+    if (scroll) setTimeout(() => $('directions').scrollIntoView(), calm ? 0 : 1700);
   }
   $('toWork').addEventListener('click', () => goToWork());
   $('spin').addEventListener('click', () => goToWork());
@@ -80,55 +81,37 @@
     if (!e.isIntersecting && state !== 'work') goToWork(false);
   }, { threshold: 0.12 }).observe(panel);
 
-  /* ---------- Куди дивиться кіт: рухаються лише зіниці ---------- */
-  const pointer = { x: innerWidth * 0.3, y: innerHeight * 0.4, seen: false };
-  const eye = { x: 0, y: 0 };
-  let turn = 0;
+  /* ---------- Координати ---------- */
+  const toSvg = (cx, cy) => {
+    const p = new DOMPoint(cx, cy).matrixTransform(svg.getScreenCTM().inverse());
+    return { x: p.x, y: p.y };
+  };
+  const toScreen = (x, y) => new DOMPoint(x, y).matrixTransform(svg.getScreenCTM());
 
   function placeBubble() {
     if (innerWidth <= 900) return;
-    const p = new DOMPoint(905, 165).matrixTransform(svg.getScreenCTM()), r = panel.getBoundingClientRect();
+    const p = toScreen(905, 165), r = panel.getBoundingClientRect();
     bubble.style.left = Math.min(p.x - r.left, r.width - 290) + 'px';
     bubble.style.top = Math.max(p.y - r.top, 84) + 'px';
   }
 
-  // Текст рівно на все коло, без розриву
-  function closeRing() {
-    const tp = spinText.firstElementChild, len = 2 * Math.PI * 54, n = tp.textContent.length;
-    spinText.style.letterSpacing = '0px';
-    spinText.style.letterSpacing = ((len - spinText.getComputedTextLength()) / n).toFixed(3) + 'px';
-  }
-  document.fonts.ready.then(closeRing);
+  /* ---------- Куди дивиться кіт ---------- */
+  const pointer = { x: innerWidth * 0.3, y: innerHeight * 0.4, seen: false };
+  let eyeX = 0;
 
+  /* ---------- Головний цикл ---------- */
   function frame(now) {
-    let target;
-    if (pointer.seen) {
-      const p = new DOMPoint(pointer.x, pointer.y).matrixTransform(svg.getScreenCTM().inverse());
-      target = { x: p.x, y: p.y };
-    } else {
-      // На телефоні, поки не торкнулись, кіт сам повільно озирається.
-      target = { x: 695 + Math.sin(now / 1700) * 500, y: 340 + Math.cos(now / 2300) * 160 };
-    }
-    const dx = target.x - 695, dist = Math.abs(dx) || 1;
-    const k = Math.min(1, dist / 340);
-    eye.x += ((dx / dist) * 5.5 * k - eye.x) * 0.12; // лише вліво-вправо: вниз око відкриває край райдужки
-        pupils.forEach((el) => el.setAttribute('transform', `translate(${eye.x.toFixed(2)} ${eye.y.toFixed(2)})`));
-
-    // Стрілка в колі дивиться на курсор
-    if (pointer.seen && !calm) {
-      const r = spin.getBoundingClientRect();
-      if (r.width) {
-        const want = Math.atan2(pointer.y - r.top - r.height / 2, pointer.x - r.left - r.width / 2) * 180 / Math.PI + 45;
-        turn += (((want - turn + 540) % 360) - 180) * 0.14;
-        arrow.style.setProperty('--turn', turn.toFixed(1) + 'deg');
-      }
-    }
+    // Голова нерухома. Зіниці ходять лише вліво-вправо; на телефоні кіт сам повільно озирається.
+    const x = pointer.seen ? toSvg(pointer.x, pointer.y).x : 695 + Math.sin(now / 1700) * 500;
+    const dx = x - 695;
+    eyeX += (Math.sign(dx) * 5.5 * Math.min(1, Math.abs(dx) / 340) - eyeX) * 0.12;
+    pupils.forEach((el) => el.setAttribute('transform', 'translate(' + eyeX.toFixed(2) + ' 0)'));
 
     if (state !== 'work' && now - lastTouch > 11000 && scrollY < 200) { lastTouch = now; say(pick('idle')); }
     requestAnimationFrame(frame);
   }
 
-  /* ---------- Кільце-курсор ---------- */
+  /* ---------- Вказівник і кільце ---------- */
   const cursor = document.querySelector('.cursor');
   const dot = document.querySelector('.cursor__dot'), ring = document.querySelector('.cursor__ring');
   const ringPos = { x: pointer.x, y: pointer.y };
@@ -138,6 +121,7 @@
     cursor.classList.toggle('big', !!e.target.closest?.('a, button, #zones > *'));
   }, { passive: true });
   if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.documentElement.style.cursor = 'none';
     const style = document.createElement('style');
     style.textContent = '*{cursor:none !important}';
     document.head.append(style);
@@ -151,6 +135,6 @@
 
   addEventListener('resize', placeBubble);
   placeBubble();
-  setTimeout(() => say('Я працюю.', 3000), 1400);
+  setTimeout(() => say('Я працюю.', 3000), 1200);
   requestAnimationFrame(frame);
 })();
