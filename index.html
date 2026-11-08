@@ -7,7 +7,7 @@
 <meta name="description" content="Допомагаю бізнесу налагоджувати процеси за допомогою автоматизації, інтеграцій, AI та веброзробки.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body data-state="play">
@@ -17,11 +17,14 @@
 <section class="hero" id="top">
   <div class="panel" id="panel">
 
-    <svg class="cat" id="cat" viewBox="0 0 1376 768" preserveAspectRatio="xMidYMin slice" role="img" aria-label="Пухнастий кремовий кіт у синьому светрі суворо стежить за курсором">
+    <svg class="cat" id="cat" viewBox="0 0 1376 768" preserveAspectRatio="xMidYMin slice" role="img" aria-label="Пухнастий кремовий кіт стежить очима за курсором">
       <defs>
         <path id="eyeShapeL" d="M556 322 C566 316 582 318 595 321 L650 334 C648 349 636 356 622 356 C604 355 576 352 563 342 C558 336 555 328 556 322Z"/>
         <path id="eyeShapeR" d="M741 331 L798 321 C810 318 826 317 833 323 C833 331 828 339 822 345 C808 353 786 357 769 358 C752 357 742 347 741 331Z"/>
         <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.5"/></filter>
+        <filter id="dof" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="20"/></filter>
+        <linearGradient id="lowerFade" x1="0" x2="0" y1="520" y2="660" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#000"/><stop offset="1" stop-color="#fff"/></linearGradient>
+        <mask id="lower" maskUnits="userSpaceOnUse" x="-40" y="-40" width="1460" height="850"><rect x="-40" y="-40" width="1460" height="850" fill="url(#lowerFade)"/></mask>
         <mask id="maskL" maskUnits="userSpaceOnUse" x="0" y="0" width="1376" height="768"><use href="#eyeShapeL" fill="#fff" filter="url(#soft)"/></mask>
         <mask id="maskR" maskUnits="userSpaceOnUse" x="0" y="0" width="1376" height="768"><use href="#eyeShapeR" fill="#fff" filter="url(#soft)"/></mask>
         <path id="irisLPath" d="M595 322 L650 335 C648 349 636 355 622 355 C606 355 595 342 595 322Z"/>
@@ -32,90 +35,82 @@
         <linearGradient id="scleraL" x1="556" x2="650" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8f7d58"/><stop offset=".38" stop-color="#bdb192"/><stop offset="1" stop-color="#cfc9b3"/></linearGradient>
         <linearGradient id="scleraR" x1="833" x2="741" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9d8a62"/><stop offset=".38" stop-color="#c9bfa2"/><stop offset="1" stop-color="#d8d3bf"/></linearGradient>
       </defs>
-      <g id="head">
-        <g id="react">
-          <image href="assets/cat.jpg" width="1376" height="768"/>
-          <g mask="url(#maskL)">
-            <use href="#irisLPath" fill="url(#scleraL)" stroke="url(#scleraL)" stroke-width="12" filter="url(#gap)"/>
-            <g id="pupilL">
-              <circle cx="622" cy="327" r="29" fill="#0a1b36"/>
-              <g clip-path="url(#irisL)"><image href="assets/cat.jpg" width="1376" height="768"/></g>
-            </g>
-          </g>
-          <g mask="url(#maskR)">
-            <use href="#irisRPath" fill="url(#scleraR)" stroke="url(#scleraR)" stroke-width="12" filter="url(#gap)"/>
-            <g id="pupilR">
-              <circle cx="769" cy="328" r="29" fill="#0a1b36"/>
-              <g clip-path="url(#irisR)"><image href="assets/cat.jpg" width="1376" height="768"/></g>
-            </g>
+
+      <image href="assets/hero.jpg" width="1376" height="768"/>
+        <g mask="url(#maskL)">
+          <use href="#irisLPath" fill="url(#scleraL)" stroke="url(#scleraL)" stroke-width="12" filter="url(#gap)"/>
+          <g id="pupilL">
+            <circle cx="622" cy="327" r="29" fill="#0a1b36"/>
+            <g clip-path="url(#irisL)"><image href="assets/hero.jpg" width="1376" height="768"/></g>
           </g>
         </g>
-      </g>
-
-      <!-- Зони, які можна чіпати -->
-      <g id="zones" fill="transparent">
-        <circle data-zone="head" cx="695" cy="310" r="232" tabindex="0" role="button" aria-label="Погладити кота"/>
-        <path data-zone="ear" d="M495 215 L510 80 L615 130 Z"/>
-        <path data-zone="ear" d="M775 130 L880 80 L895 215 Z"/>
-        <circle data-zone="nose" cx="695" cy="354" r="26"/>
-        <path data-zone="sweater" d="M500 690 L560 520 H830 L890 690 V768 H500 Z"/>
-      </g>
+        <g mask="url(#maskR)">
+          <use href="#irisRPath" fill="url(#scleraR)" stroke="url(#scleraR)" stroke-width="12" filter="url(#gap)"/>
+          <g id="pupilR">
+            <circle cx="769" cy="328" r="29" fill="#0a1b36"/>
+            <g clip-path="url(#irisR)"><image href="assets/hero.jpg" width="1376" height="768"/></g>
+          </g>
+        </g>
     </svg>
 
     <div class="scrim" aria-hidden="true"></div>
 
-    <header class="top">
-      <a class="logo" href="#top">Olena Shepel</a>
-      <nav class="pills" aria-label="Головна навігація">
-        <a href="#about">Про мене</a>
-        <a href="#directions">Напрями</a>
-        <a href="#work">Роботи</a>
-        <a href="#contact">Контакт</a>
-      </nav>
-    </header>
-
-    <div class="copy">
-      <p class="eyebrow"><img class="eyebrow__photo" src="assets/olena.webp" alt="" width="40" height="40">Олена Шепель · AI, автоматизація, веб</p>
-      <h1 id="title">Кота<br>не чіпати.</h1>
-      <p class="lead" id="lead">Він керівник відділу автоматизації і зараз дуже зайнятий. Будь ласка, просто пройдіть повз.</p>
-      <div class="actions">
-        <button class="btn btn--main" id="toWork"><span id="toWorkLabel">Гаразд, до діла</span> <span aria-hidden="true">→</span></button>
-        <a class="btn btn--ghost" href="#contact"><span class="btn__dot" aria-hidden="true">▶</span>Обговорити<br>задачу</a>
-      </div>
+    <a class="avatar" href="#about" aria-label="Про мене"></a>
+    <nav class="pills pills--l" aria-label="Головна навігація">
+      <a class="is-active" href="#top">Головна</a>
+      <a href="#about">Про мене</a>
+      <a href="#directions">Напрями</a>
+    </nav>
+    <a class="logo" href="#top"><svg viewBox="0 0 32 26" aria-hidden="true"><path d="M4 1l7 5a15 15 0 0 1 10 0l7-5 1 13c0 7-6 11-13 11S3 21 3 14z" fill="currentColor"/><circle cx="11" cy="15" r="2.4" fill="#548da3"/><circle cx="21" cy="15" r="2.4" fill="#548da3"/></svg>Olena Shepel</a>
+    <nav class="pills pills--r" aria-label="Ще розділи">
+      <a href="#work">Роботи</a>
+      <a class="opt" href="#talks">Виступи</a>
+      <a href="#contact">Контакт</a>
+    </nav>
+    <div class="icons">
+      <a href="https://t.me/shelenie" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M22 3 2 11l7 3 3 7zM22 3 9 14"/></svg></a>
+      <a href="#directions" aria-label="Усі напрями"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="5" r="1.8"/><circle cx="12" cy="5" r="1.8"/><circle cx="19" cy="5" r="1.8"/><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/><circle cx="5" cy="19" r="1.8"/><circle cx="12" cy="19" r="1.8"/><circle cx="19" cy="19" r="1.8"/></svg></a>
     </div>
 
     <div class="stage" aria-hidden="true"></div>
 
-    <div class="side">
-      <div class="meter" id="meter" role="status">
-        <span class="meter__label">Терпець кота</span>
-        <span class="meter__bars"><i></i><i></i><i></i><i></i><i></i></span>
-      </div>
-      <div class="cards">
-        <a class="card" href="#directions">
-          <span class="card__title">Що я роблю</span>
-          <span class="card__text">шість напрямів без зайвої магії</span>
-          <span class="card__go">Go</span>
-          <span class="card__cat card__cat--side" aria-hidden="true"></span>
-        </a>
-        <a class="card" href="#work">
-          <span class="card__title">Що вже робила</span>
-          <span class="card__text">кіт стежив особисто</span>
-          <span class="card__go">Go</span>
-          <span class="card__cat card__cat--front" aria-hidden="true"></span>
-        </a>
-      </div>
+    <div class="copy">
+      <p class="eyebrow rise"><svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path fill="#ffff75" d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12z"/><path fill="#2a2547" d="M10.09 16.72l-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg>Олена Шепель · AI, автоматизація, веб</p>
+      <h1 id="title" class="rise" style="--d:.12s">Спочатку<br>задача.</h1>
+      <p class="lead rise" id="lead" style="--d:.26s">Допомагаю бізнесу налагоджувати процеси за допомогою автоматизації, інтеграцій, AI та веброзробки.</p>
     </div>
 
-    <button class="spin" id="spin" aria-label="Перейти до діла">
+    <div class="actions rise" style="--d:.4s">
+      <a class="btn btn--main" href="#work">Мої роботи<svg class="arrow" viewBox="0 0 32 16" aria-hidden="true"><path d="M0 8h30M23 1l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
+      <a class="btn btn--ghost" href="#contact"><span class="btn__dot" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg></span>Обговорити<br>задачу</a>
+    </div>
+
+    <a class="spin rise" id="spin" style="--d:.5s" href="#directions" aria-label="Перейти до напрямів">
       <svg class="spin__ring" viewBox="0 0 140 140" aria-hidden="true">
         <defs><path id="circ" d="M70 70 m-54 0 a54 54 0 1 1 108 0 a54 54 0 1 1 -108 0"/></defs>
         <text class="spin__text" id="spinText"><textPath href="#circ">ДО ДІЛА&nbsp;·&nbsp;ДО ДІЛА&nbsp;·&nbsp;ДО ДІЛА&nbsp;·&nbsp;ДО ДІЛА&nbsp;·&nbsp;</textPath></text>
       </svg>
-      <svg class="spin__arrow" id="spinArrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M4 36 36 4M14 4h22v22" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>
-    </button>
+      <svg class="spin__arrow" id="spinArrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M4 36 36 4M14 4h22v22" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+    </a>
 
-    <div class="bubble" id="bubble" aria-live="polite"></div>
+    <div class="mission rise" style="--d:.55s" >
+      <div class="faces" aria-hidden="true"><i class="f-me"></i><i class="f-a"></i><i class="f-b"></i></div>
+      <p class="mission__title">Спершу логіка, потім інструменти</p>
+      <p class="mission__sub">без зайвої магії</p>
+    </div>
+
+    <a class="card card--1 rise" style="--d:.65s" href="#directions">
+      <span class="card__title">Що я роблю</span>
+      <span class="card__text">шість напрямів</span>
+      <span class="card__go">Go</span>
+      <span class="card__cat card__cat--side" aria-hidden="true"></span>
+    </a>
+    <a class="card card--2 rise" style="--d:.75s" href="#work">
+      <span class="card__title">Що вже робила</span>
+      <span class="card__text">реальні проєкти</span>
+      <span class="card__go">Go</span>
+      <span class="card__cat card__cat--front" aria-hidden="true"></span>
+    </a>
   </div>
 </section>
 
