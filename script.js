@@ -2,13 +2,14 @@
   const $ = (id) => document.getElementById(id);
   const svg = $('cat'), panel = $('panel'), bubble = $('bubble'), title = $('title'), lead = $('lead');
   const pupils = [$('pupilL'), $('pupilR')];
-  const faces = [...document.querySelectorAll('.faces i')];
+  const faces = [...document.querySelectorAll('.meter__bars i')];
+  const spin = $('spin'), arrow = $('spinArrow'), spinText = $('spinText');
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const COPY = {
-    play: ['Кота не<br>чіпати.', 'Він керівник відділу автоматизації і зараз дуже зайнятий. Будь ласка, просто пройдіть повз.', 'До діла'],
-    ready: ['Ну все.<br>Досить.', 'Кіт витратив на вас увесь робочий день. Перейдемо до діла?', 'До діла'],
-    work: ['Спочатку<br>задача. Потім<br>рішення.', 'Допомагаю бізнесу налагоджувати процеси за допомогою автоматизації, інтеграцій, AI та веброзробки.', 'Роботи'],
+    play: ['Кота<br>не чіпати.', 'Він керівник відділу автоматизації і зараз дуже зайнятий. Будь ласка, просто пройдіть повз.', 'Гаразд, до діла'],
+    ready: ['Ну все.<br>Досить.', 'Кіт витратив на вас увесь робочий день. Перейдемо до діла?', 'Гаразд, до діла'],
+    work: ['Спочатку задача.<br>Потім рішення.', 'Допомагаю бізнесу налагоджувати процеси за допомогою автоматизації, інтеграцій, AI та веброзробки. Підбираю інструменти під конкретну потребу.', 'Дивитися роботи'],
   };
   const LINES = {
     head: ['Я бачив.', 'Це було гладження без погодження.', 'Оформіть заявку.', 'Ще раз, і я внесу це в CRM.'],
@@ -50,7 +51,6 @@
     faces.forEach((f, i) => f.classList.toggle('off', i >= patience));
     if (patience === 0) {
       setCopy('ready');
-      $('missionSub').textContent = 'терпець закінчився';
       say('Усе. Терпець закінчився.', 3600);
     } else {
       say(pick(zone));
@@ -83,6 +83,22 @@
   /* ---------- Куди дивиться кіт: рухаються лише зіниці ---------- */
   const pointer = { x: innerWidth * 0.3, y: innerHeight * 0.4, seen: false };
   const eye = { x: 0, y: 0 };
+  let turn = 0;
+
+  function placeBubble() {
+    if (innerWidth <= 900) return;
+    const p = new DOMPoint(905, 165).matrixTransform(svg.getScreenCTM()), r = panel.getBoundingClientRect();
+    bubble.style.left = Math.min(p.x - r.left, r.width - 290) + 'px';
+    bubble.style.top = Math.max(p.y - r.top, 84) + 'px';
+  }
+
+  // Текст рівно на все коло, без розриву
+  function closeRing() {
+    const tp = spinText.firstElementChild, len = 2 * Math.PI * 54, n = tp.textContent.length;
+    spinText.style.letterSpacing = '0px';
+    spinText.style.letterSpacing = ((len - spinText.getComputedTextLength()) / n).toFixed(3) + 'px';
+  }
+  document.fonts.ready.then(closeRing);
 
   function frame(now) {
     let target;
@@ -93,11 +109,20 @@
       // На телефоні, поки не торкнулись, кіт сам повільно озирається.
       target = { x: 695 + Math.sin(now / 1700) * 500, y: 340 + Math.cos(now / 2300) * 160 };
     }
-    const dx = target.x - 695, dy = target.y - 332, dist = Math.hypot(dx, dy) || 1;
+    const dx = target.x - 695, dist = Math.abs(dx) || 1;
     const k = Math.min(1, dist / 340);
-    eye.x += ((dx / dist) * 5.5 * k - eye.x) * 0.12;
-    eye.y += ((dy / dist) * 1.6 * k - eye.y) * 0.12;
-    pupils.forEach((el) => el.setAttribute('transform', `translate(${eye.x.toFixed(2)} ${eye.y.toFixed(2)})`));
+    eye.x += ((dx / dist) * 5.5 * k - eye.x) * 0.12; // лише вліво-вправо: вниз око відкриває край райдужки
+        pupils.forEach((el) => el.setAttribute('transform', `translate(${eye.x.toFixed(2)} ${eye.y.toFixed(2)})`));
+
+    // Стрілка в колі дивиться на курсор
+    if (pointer.seen && !calm) {
+      const r = spin.getBoundingClientRect();
+      if (r.width) {
+        const want = Math.atan2(pointer.y - r.top - r.height / 2, pointer.x - r.left - r.width / 2) * 180 / Math.PI + 45;
+        turn += (((want - turn + 540) % 360) - 180) * 0.14;
+        arrow.style.setProperty('--turn', turn.toFixed(1) + 'deg');
+      }
+    }
 
     if (state !== 'work' && now - lastTouch > 11000 && scrollY < 200) { lastTouch = now; say(pick('idle')); }
     requestAnimationFrame(frame);
@@ -124,6 +149,8 @@
     })();
   }
 
+  addEventListener('resize', placeBubble);
+  placeBubble();
   setTimeout(() => say('Я працюю.', 3000), 1400);
   requestAnimationFrame(frame);
 })();
