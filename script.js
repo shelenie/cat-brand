@@ -185,6 +185,39 @@
     const push = Math.max(0, document.querySelector('.btn--ghost').getBoundingClientRect().right + 12 - r.left);
     spin.style.setProperty('--push', push.toFixed(1) + 'px');
   }
+  /* ---------- Кіт коментує напрями ---------- */
+  const catNote = $('catNote'), noteDefault = catNote.textContent;
+  let noteTimer;
+  function setNote(text) {
+    if (catNote.textContent === text) return;
+    catNote.classList.add('swap');
+    clearTimeout(noteTimer);
+    noteTimer = setTimeout(() => { catNote.textContent = text; catNote.classList.remove('swap'); }, calm ? 0 : 160);
+  }
+  document.querySelectorAll('.dir').forEach((card) => {
+    card.addEventListener('mouseenter', () => setNote(card.dataset.cat));
+    card.addEventListener('mouseleave', () => setNote(noteDefault));
+  });
+
+  /* ---------- Поява карток при скролі ---------- */
+  const bento = document.querySelector('.bento');
+  if (!calm && 'IntersectionObserver' in window) {
+    bento.classList.add('anim');
+    const showDir = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        showDir.unobserve(e.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    bento.querySelectorAll('.dir').forEach((card, i) => {
+      card.style.setProperty('--n', i % 3);
+      card.style.setProperty('--r', (i % 2 ? 3 : -3) + 'deg');
+      card.querySelectorAll('.tools li').forEach((li, t) => li.style.setProperty('--t', t));
+      showDir.observe(card);
+    });
+  }
+
   /* ---------- Кнопка «вгору»: з'являється, коли хіро лишилось позаду ---------- */
   const toTop = $('toTop');
   const toggleTop = () => toTop.classList.toggle('is-shown', scrollY > innerHeight * 0.9);
