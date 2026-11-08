@@ -1,4 +1,11 @@
 (() => {
+  // Після перезавантаження завжди починаємо з верху сайту
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  const toStart = () => scrollTo({ top: 0, behavior: 'instant' });
+  toStart();
+  addEventListener('pageshow', toStart, { once: true });
+
   const $ = (id) => document.getElementById(id);
   const svg = $('cat'), panel = $('panel'), spin = $('spin'), arrow = $('spinArrow'), spinText = $('spinText');
   const bubble = $('bubble'), title = $('title'), lead = $('lead');
@@ -224,6 +231,39 @@
   addEventListener('scroll', toggleTop, { passive: true });
   toggleTop();
   toTop.addEventListener('click', () => scrollTo({ top: 0 }));
+
+  /* ---------- Роботи: заголовок по літерах, поява, нахил ---------- */
+  const work = $('work'), workGrid = $('workGrid'), workTitle = $('workTitle');
+  const cases = [...workGrid.querySelectorAll('.case')];
+  let coverQueued = false;
+  function cover() {
+    coverQueued = false;
+    const p = Math.max(0, Math.min(1, 1 - work.getBoundingClientRect().top / innerHeight));
+    work.style.setProperty('--cover', p.toFixed(3));
+  }
+  addEventListener('scroll', () => { if (!coverQueued) { coverQueued = true; requestAnimationFrame(cover); } }, { passive: true });
+  addEventListener('resize', cover);
+  cover();
+
+  let c = 0;
+  const label = workTitle.textContent;
+  workTitle.setAttribute('aria-label', label);
+  workTitle.innerHTML = label.split(' ').map((w) => '<span class="w" aria-hidden="true">' + [...w].map((l) => '<span class="c" style="--c:' + (c++) + '">' + l + '</span>').join('') + '</span>').join(' ');
+  if ('IntersectionObserver' in window) {
+    if (!calm) { workGrid.classList.add('anim'); workTitle.classList.add('is-split'); }
+    const showOnce = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      showOnce.unobserve(e.target);
+    }), { threshold: 0.15 });
+    showOnce.observe(workTitle);
+    cases.forEach((el, i) => { el.style.setProperty('--n', i); showOnce.observe(el); });
+    // Сцени рухаються, лише коли картку видно
+    const liveArt = new IntersectionObserver((entries) => entries.forEach((e) => {
+      e.target.classList.toggle('live', e.isIntersecting);
+    }));
+    cases.forEach((el) => liveArt.observe(el));
+  } else cases.forEach((el) => el.classList.add('live'));
 
   addEventListener('resize', () => { placeBubble(); placeSpin(); });
   placeBubble();

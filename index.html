@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=41">
+<link rel="stylesheet" href="styles.css?v=70">
 </head>
 <body data-state="play">
 
@@ -130,31 +130,31 @@
       <p class="note cat-note"><b>Примітка кота:</b> <span id="catNote">затвердив усі шість. Неохоче.</span></p>
     </div>
     <div class="bento">
-      <article class="dir dir--big" data-cat="Усе з усім з'єднано. Крім кота.">
-        <img class="dir__cat" src="assets/card-top.webp" alt="" loading="lazy">
-        <h3>Інтеграції та автоматизація</h3>
-        <p>З'єдную сервіси, CRM, сайти й форми. Заявки, сповіщення та follow-up працюють без ручної роботи.</p>
-        <ul class="tools"><li>Make</li><li>API</li><li>Webhooks</li><li>GoHighLevel</li><li>Pipedrive</li><li>Close.io</li><li>KeepinCRM</li><li>keyCRM</li><li>Slack</li><li>Twilio</li><li>Calendly</li><li>ManyChat</li></ul>
+      <article class="dir dir--web" data-cat="Сайт працює. Кіт перевірив.">
+        <h3>Веб та розробка</h3>
+        <p>Сайти, вебінтерфейси, окремі інструменти, робота з наявними сайтами.</p>
+        <ul class="tools"><li>Next.js</li><li>JavaScript</li><li>Node.js</li><li>GitHub</li><li>Vercel</li><li>Railway</li><li>Tilda</li></ul>
       </article>
       <article class="dir dir--ai" data-cat="Агенти працюють. Кіт наглядає.">
         <h3>AI та агенти</h3>
         <p>AI у бізнес-процесах: класифікація, аналіз, відповіді, агенти.</p>
         <ul class="tools"><li>OpenAI API</li><li>Gemini API</li><li>OpenClaw</li><li>Claude Code</li><li>SetterStack: AI-бот у Direct</li></ul>
       </article>
+      <article class="dir dir--big" data-cat="Усе з усім з'єднано. Крім кота.">
+        <img class="dir__cat" src="assets/card-yarn.webp?v=5" alt="" loading="lazy">
+        <h3>Інтеграції та автоматизація</h3>
+        <p>З'єдную сервіси, CRM, сайти й форми. Заявки, сповіщення та follow-up працюють без ручної роботи.</p>
+        <ul class="tools"><li>Make</li><li>API</li><li>Webhooks</li><li>GoHighLevel</li><li>Pipedrive</li><li>Close.io</li><li>KeepinCRM</li><li>keyCRM</li><li>Slack</li><li>Twilio</li><li>Calendly</li><li>ManyChat</li></ul>
+      </article>
       <article class="dir dir--data" data-cat="Цифри не брешуть. Кіт теж.">
         <h3>Дані та аналітика</h3>
         <p>Збір, передача й обробка даних, маркетингова атрибуція.</p>
-        <ul class="tools"><li>PostgreSQL</li><li>Supabase</li><li>Google Sheets</li><li>UTM tracking</li><li>CRM data: бази клієнтів</li><li>Маркетингова атрибуція</li></ul>
+        <ul class="tools"><li>PostgreSQL</li><li>Supabase</li><li>Google Sheets</li><li>UTM tracking</li><li>CRM data: бази клієнтів</li><li>Hyros</li><li>Маркетингова атрибуція</li></ul>
       </article>
       <article class="dir dir--forms" data-cat="Оплату приймаємо. Гладження ні.">
         <h3>Форми та платежі</h3>
         <p>Анкети, заявки й оплати, підключені до процесів.</p>
         <ul class="tools"><li>Typeform</li><li>Jotform</li><li>Fillout</li><li>Stripe</li><li>Whop</li><li>WayForPay</li></ul>
-      </article>
-      <article class="dir dir--web" data-cat="Сайт працює. Кіт перевірив.">
-        <h3>Веб та розробка</h3>
-        <p>Сайти, вебінтерфейси, окремі інструменти, робота з наявними сайтами.</p>
-        <ul class="tools"><li>Next.js</li><li>JavaScript</li><li>Node.js</li><li>GitHub</li><li>Vercel</li><li>Railway</li><li>Tilda</li></ul>
       </article>
       <article class="dir dir--mkt" data-cat="Реклама йде. Кіт не клікає.">
         <h3>Маркетинг</h3>
@@ -164,16 +164,30 @@
     </div>
   </section>
 
-  <section class="section section--teal" id="work">
+  <section class="section work" id="work">
+    <img class="work__cat" src="assets/card-top.webp" alt="" aria-hidden="true">
     <div class="section__head">
-      <h2>Що вже зроблено</h2>
-      <p class="note"><b>Примітка кота:</b> участі не брав. Але стежив.</p>
+      <h2 class="work__title" id="workTitle">Що вже зроблено</h2>
+      <p class="note work__note"><b>Примітка кота:</b> участі не брав. Але стежив.</p>
     </div>
-    <div class="grid grid--2">
-      <article class="case"><span class="case__tag">US market · Completed</span><h3>CRM та маркетингова інфраструктура</h3><p>CRM, інтеграції, автоматизація записів, маркетингові дані та взаємодія між сервісами.</p></article>
-      <article class="case"><span class="case__tag">UA market · Completed</span><h3>Сайт та CRM для бізнесу</h3><p>Розробка сайту, налаштування KeepinCRM, передача заявок через webhook, створення угод і сповіщення менеджера.</p></article>
-      <article class="case"><span class="case__tag">Own product · Active</span><h3>Аналітична система для бізнесу</h3><p>Власний продукт для роботи з даними, імпортами, аналітикою та AI-помічником.</p></article>
-      <article class="case"><span class="case__tag">US market · Active</span><h3>CRM та автоматизація бізнес-процесів</h3><p>Робота з CRM, сайтами, формами, інтеграціями, маркетинговими процесами та автоматизаціями.</p></article>
+    <!-- Новий проєкт: скопіювати один блок article.case. У .case__media вставити img або video. -->
+    <div class="work__grid" id="workGrid">
+      <article class="case">
+        <div class="case__media"><span>Тут буде відео або скрін</span></div>
+        <div class="case__body"><span class="case__tag">US market</span><h3>CRM та маркетингова інфраструктура</h3><p>CRM, інтеграції, автоматизація записів, маркетингові дані та взаємодія між сервісами.</p><p class="case__cat"><b>Кіт:</b> інтеграцій багато. Кіт один.</p></div>
+      </article>
+      <article class="case">
+        <div class="case__media"><span>Тут буде відео або скрін</span></div>
+        <div class="case__body"><span class="case__tag">UA market</span><h3>Сайт та CRM для бізнесу</h3><p>Розробка сайту, налаштування KeepinCRM, передача заявок через webhook, створення угод і сповіщення менеджера.</p><p class="case__cat"><b>Кіт:</b> заявка дійшла. Кіт перевірив.</p></div>
+      </article>
+      <article class="case">
+        <div class="case__media"><span>Тут буде відео або скрін</span></div>
+        <div class="case__body"><span class="case__tag">Own product</span><h3>Аналітична система для бізнесу</h3><p>Власний продукт для роботи з даними, імпортами, аналітикою та AI-помічником.</p><p class="case__cat"><b>Кіт:</b> цифри зійшлись. Кіт не здивований.</p></div>
+      </article>
+      <article class="case">
+        <div class="case__media"><span>Тут буде відео або скрін</span></div>
+        <div class="case__body"><span class="case__tag">US market</span><h3>CRM та автоматизація бізнес-процесів</h3><p>Робота з CRM, сайтами, формами, інтеграціями, маркетинговими процесами та автоматизаціями.</p><p class="case__cat"><b>Кіт:</b> усе працює саме. Підозріло.</p></div>
+      </article>
     </div>
   </section>
 
@@ -220,6 +234,6 @@
 <footer class="foot"><span>© Olena Shepel</span><a href="#top">Повернутися до кота ↑</a></footer>
 
 <button class="to-top" id="toTop" type="button" aria-label="Прокрутити вгору"><svg viewBox="0 0 64 40" aria-hidden="true"><path d="M3 20H61M42 3C45 11 52 17 61 20C52 23 45 29 42 37" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<script src="script.js?v=41"></script>
+<script src="script.js?v=70"></script>
 </body>
 </html>
