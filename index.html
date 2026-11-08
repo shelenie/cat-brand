@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Олена Шепель — автоматизація, інтеграції, AI та веб</title>
+<meta name="description" content="Допомагаю бізнесу налагоджувати процеси за допомогою автоматизації, інтеграцій, AI та веброзробки.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-state="play">
+
+<div class="cursor" aria-hidden="true"><i class="cursor__ring"></i><i class="cursor__dot"></i></div>
+
+<section class="hero" id="top">
+  <div class="panel" id="panel">
+
+    <svg class="cat" id="cat" viewBox="0 0 1376 768" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Пухнастий кремовий кіт у синьому светрі суворо стежить за курсором">
+      <defs>
+        <path id="eyeShapeL" d="M556 322 C566 316 582 318 595 321 L650 334 C648 349 636 356 622 356 C604 355 576 352 563 342 C558 336 555 328 556 322Z"/>
+        <path id="eyeShapeR" d="M741 331 L798 321 C810 318 826 317 833 323 C833 331 828 339 822 345 C808 353 786 357 769 358 C752 357 742 347 741 331Z"/>
+        <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.5"/></filter>
+        <filter id="shade" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4"/></filter>
+        <mask id="maskL" maskUnits="userSpaceOnUse" x="0" y="0" width="1376" height="768"><use href="#eyeShapeL" fill="#fff" filter="url(#soft)"/></mask>
+        <mask id="maskR" maskUnits="userSpaceOnUse" x="0" y="0" width="1376" height="768"><use href="#eyeShapeR" fill="#fff" filter="url(#soft)"/></mask>
+        <clipPath id="irisL"><path d="M595 322 L650 335 C648 349 636 355 622 355 C606 355 595 342 595 322Z"/></clipPath>
+        <clipPath id="irisR"><path d="M741 331 L798 321 C799 342 787 357 769 357 C752 357 742 347 741 331Z"/></clipPath>
+        <linearGradient id="scleraL" x1="556" x2="650" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8f7d58"/><stop offset=".38" stop-color="#bdb192"/><stop offset="1" stop-color="#cfc9b3"/></linearGradient>
+        <linearGradient id="scleraR" x1="833" x2="741" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9d8a62"/><stop offset=".38" stop-color="#c9bfa2"/><stop offset="1" stop-color="#d8d3bf"/></linearGradient>
+        <radialGradient id="irisFill"><stop offset="0" stop-color="#0a1c38"/><stop offset=".55" stop-color="#123f78"/><stop offset="1" stop-color="#2b86c8"/></radialGradient>
+      </defs>
+
+      <g id="rig">
+        <g id="react">
+          <image href="assets/cat.jpg" width="1376" height="768"/>
+
+          <g mask="url(#maskL)">
+            <use href="#eyeShapeL" fill="url(#scleraL)"/>
+            <g id="pupilL">
+              <circle cx="622" cy="327" r="30" fill="url(#irisFill)"/>
+              <g clip-path="url(#irisL)"><image href="assets/cat.jpg" width="1376" height="768"/></g>
+            </g>
+            <path d="M550 314 L595 317 L656 332" fill="none" stroke="#3b2b16" stroke-width="15" opacity=".62" filter="url(#shade)"/>
+            <path id="lidL" d="M540 240 H680 V346 L650 334 L595 321 C582 318 566 316 550 320 Z" fill="#dcc9a4" filter="url(#soft)"/>
+          </g>
+
+          <g mask="url(#maskR)">
+            <use href="#eyeShapeR" fill="url(#scleraR)"/>
+            <g id="pupilR">
+              <circle cx="769" cy="328" r="30" fill="url(#irisFill)"/>
+              <g clip-path="url(#irisR)"><image href="assets/cat.jpg" width="1376" height="768"/></g>
+            </g>
+            <path d="M735 334 L798 318 L840 318" fill="none" stroke="#3b2b16" stroke-width="15" opacity=".62" filter="url(#shade)"/>
+            <path id="lidR" d="M725 240 H845 V320 C826 316 810 318 798 321 L741 331 L725 346 Z" fill="#dcc9a4" filter="url(#soft)"/>
+          </g>
+
+          <g id="glasses">
+            <circle cx="612" cy="338" r="70"/>
+            <circle cx="778" cy="338" r="70"/>
+            <path d="M682 326 Q695 312 708 326"/>
+            <path d="M542 326 L498 300"/>
+            <path d="M848 326 L892 300"/>
+          </g>
+        </g>
+      </g>
+
+      <!-- Зони, які можна чіпати -->
+      <g id="zones" fill="transparent">
+        <circle data-zone="head" cx="695" cy="310" r="232" tabindex="0" role="button" aria-label="Погладити кота"/>
+        <path data-zone="ear" d="M495 215 L510 80 L615 130 Z"/>
+        <path data-zone="ear" d="M775 130 L880 80 L895 215 Z"/>
+        <circle data-zone="nose" cx="695" cy="354" r="26"/>
+        <path data-zone="sweater" d="M500 690 L560 520 H830 L890 690 V768 H500 Z"/>
+      </g>
+    </svg>
+
+    <div class="scrim" aria-hidden="true"></div>
+
+    <header class="top">
+      <a class="logo" href="#top">Olena Shepel</a>
+      <nav class="pills" aria-label="Головна навігація">
+        <a href="#about">Про мене</a>
+        <a href="#directions">Напрями</a>
+        <a href="#work">Роботи</a>
+        <a href="#contact">Контакт</a>
+      </nav>
+    </header>
+
+    <div class="copy">
+      <p class="eyebrow"><span class="eyebrow__mark" aria-hidden="true">✓</span>Олена Шепель · AI, автоматизація, веб</p>
+      <h1 id="title">Кота<br>не чіпати.</h1>
+      <p class="lead" id="lead">Він керівник відділу автоматизації і зараз дуже зайнятий. Будь ласка, просто пройдіть повз.</p>
+      <div class="actions">
+        <button class="btn btn--main" id="toWork"><span id="toWorkLabel">Гаразд, до діла</span> <span aria-hidden="true">→</span></button>
+        <a class="btn btn--ghost" href="#contact"><span class="btn__dot" aria-hidden="true">▶</span>Обговорити<br>задачу</a>
+      </div>
+    </div>
+
+    <div class="stage" aria-hidden="true"></div>
+
+    <div class="side">
+      <div class="meter" id="meter" role="status">
+        <span class="meter__label">Терпець кота</span>
+        <span class="meter__bars"><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+      <div class="cards">
+        <a class="card" href="#directions">
+          <span class="card__title">Що я роблю</span>
+          <span class="card__text">шість напрямів без зайвої магії</span>
+          <span class="card__go">Go</span>
+          <span class="card__cat" aria-hidden="true"></span>
+        </a>
+        <a class="card" href="#work">
+          <span class="card__title">Що вже зроблено</span>
+          <span class="card__text">кіт стежив особисто</span>
+          <span class="card__go">Go</span>
+          <span class="card__cat card__cat--alt" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+
+    <button class="spin" id="spin" aria-label="Перейти до діла">
+      <svg viewBox="0 0 140 140" aria-hidden="true">
+        <defs><path id="circ" d="M70 70 m-52 0 a52 52 0 1 1 104 0 a52 52 0 1 1 -104 0"/></defs>
+        <text class="spin__text"><textPath href="#circ">ДО ДІЛА · ДО ДІЛА · ДО ДІЛА · ДО ДІЛА ·</textPath></text>
+      </svg>
+      <span aria-hidden="true">↗</span>
+    </button>
+
+    <div class="bubble" id="bubble" aria-live="polite"></div>
+
+    <div class="yarn" id="yarn" aria-hidden="true">
+      <svg viewBox="0 0 100 100">
+        <defs><radialGradient id="yarnFill" cx=".36" cy=".3" r=".85"><stop offset="0" stop-color="#58b9ea"/><stop offset=".6" stop-color="#1f86c6"/><stop offset="1" stop-color="#0d5a92"/></radialGradient></defs>
+        <circle cx="50" cy="50" r="47" fill="url(#yarnFill)"/>
+        <g fill="none" stroke="#bfe6fa" stroke-opacity=".5" stroke-width="1.6">
+          <path d="M8 40 Q50 8 92 42"/><path d="M5 52 Q50 20 95 54"/><path d="M8 64 Q50 34 93 66"/>
+          <path d="M28 10 Q70 45 62 95"/><path d="M40 5 Q84 42 76 90"/><path d="M16 20 Q58 50 48 96"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<main>
+  <section class="section" id="directions">
+    <div class="section__head">
+      <h2>З чим до мене приходять</h2>
+      <p class="note"><b>Примітка кота:</b> затвердив усі шість. Неохоче.</p>
+    </div>
+    <div class="grid grid--3">
+      <article class="tile"><h3>Інтеграції</h3><p>З'єднання сервісів, CRM, сайтів, форм та API.</p></article>
+      <article class="tile"><h3>Автоматизація</h3><p>Автоматична обробка заявок, CRM-процеси, сповіщення, follow-up.</p></article>
+      <article class="tile"><h3>AI та агенти</h3><p>AI у бізнес-процесах: класифікація, аналіз, генерація відповідей, налаштування агентів.</p></article>
+      <article class="tile"><h3>Дані та аналітика</h3><p>Збір, передача й обробка даних, UTM та маркетингова атрибуція.</p></article>
+      <article class="tile"><h3>Веб та розробка</h3><p>Сайти, вебінтерфейси, окремі інструменти, налаштування наявних сайтів.</p></article>
+      <article class="tile"><h3>Маркетинг та продажі</h3><p>Лідогенерація, форми, воронки, рекламні та email-процеси.</p></article>
+    </div>
+  </section>
+
+  <section class="section section--teal" id="work">
+    <div class="section__head">
+      <h2>Що вже зроблено</h2>
+      <p class="note"><b>Примітка кота:</b> участі не брав. Але стежив.</p>
+    </div>
+    <div class="grid grid--2">
+      <article class="case"><span class="case__tag">US market · Completed</span><h3>CRM та маркетингова інфраструктура</h3><p>CRM, інтеграції, автоматизація записів, маркетингові дані та взаємодія між сервісами.</p></article>
+      <article class="case"><span class="case__tag">UA market · Completed</span><h3>Сайт та CRM для бізнесу</h3><p>Розробка сайту, налаштування KeepinCRM, передача заявок через webhook, створення угод і сповіщення менеджера.</p></article>
+      <article class="case"><span class="case__tag">Own product · Active</span><h3>Аналітична система для бізнесу</h3><p>Власний продукт для роботи з даними, імпортами, аналітикою та AI-помічником.</p></article>
+      <article class="case"><span class="case__tag">US market · Active</span><h3>CRM та автоматизація бізнес-процесів</h3><p>Робота з CRM, сайтами, формами, інтеграціями, маркетинговими процесами та автоматизаціями.</p></article>
+    </div>
+  </section>
+
+  <section class="section" id="process">
+    <div class="section__head">
+      <h2>Як я працюю</h2>
+      <p class="note"><b>Примітка кота:</b> якщо задачу можна вирішити простіше, її вирішать простіше. Кіт за.</p>
+    </div>
+    <ol class="steps">
+      <li><h3>Розбираю задачу</h3><p>Що зараз не працює, де виникають затримки, що потрібно змінити.</p></li>
+      <li><h3>Проєктую рішення</h3><p>Визначаю логіку процесу, потрібні сервіси та спосіб взаємодії між ними.</p></li>
+      <li><h3>Розробляю та налаштовую</h3><p>Створюю, інтегрую, тестую.</p></li>
+      <li><h3>Передаю в роботу</h3><p>Пояснюю, як усе працює, і за потреби супроводжую.</p></li>
+    </ol>
+  </section>
+
+  <section class="section split" id="about">
+    <div>
+      <h2>Про мене</h2>
+      <p class="big">Працюю на перетині AI, автоматизації, інтеграцій, даних і веброзробки. Підбираю інструменти під задачу, а не навпаки.</p>
+      <p>Поєдную технічну роботу з розумінням бізнес-процесів, постійно досліджую нові інструменти й перевіряю їх на практиці.</p>
+    </div>
+    <aside class="stance">
+      <h3>Без магії та зайвого хайпу</h3>
+      <p>AI для мене робочий інструмент із можливостями й обмеженнями. Звертаю увагу на перевірку результатів, безпеку даних і те, чи справді технологія потрібна в конкретному процесі.</p>
+    </aside>
+  </section>
+
+  <section class="section section--yellow" id="talks">
+    <h2>AI має бути зрозумілим, а не страшним</h2>
+    <p class="big">Виступаю й пояснюю принципи роботи штучного інтелекту широкій аудиторії. Наприклад, на відкритій лекції «ШІ, якого не треба боятися: основи».</p>
+  </section>
+
+  <section class="section section--navy" id="contact">
+    <div class="contact__copy">
+      <h2>Є задача, яку хочеться нарешті вирішити?</h2>
+      <p class="big">Навіть якщо ви не знаєте, як вона називається. Кіт теж не знав.</p>
+      <a class="btn btn--yellow" href="https://t.me/shelenie" target="_blank" rel="noopener noreferrer">Обговорити проєкт <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="contact__cat" aria-hidden="true"></div>
+  </section>
+</main>
+
+<footer class="foot"><span>© Olena Shepel</span><a href="#top">Повернутися до кота ↑</a></footer>
+
+<script src="script.js"></script>
+</body>
+</html>

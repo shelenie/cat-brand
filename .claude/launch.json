@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "cat-brand",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["-y", "serve@14.2.4", "-l", "5280", "."],
+      "port": 5280
+    }
+  ]
+}
