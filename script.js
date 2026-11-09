@@ -67,18 +67,15 @@
   // Гострий куточок (tip) завжди дивиться на кота
   const SIDE = 'max(16px, calc(50% - 340px))';
   const BUBBLE_SPOTS = [
-    [SIDE, 'auto', '84px', 'br'], ['auto', SIDE, '78px', 'bl'],
-    [SIDE, 'auto', '134px', 'br'], [SIDE, 'auto', '258px', 'tr'],
-    ['auto', SIDE, '286px', 'tl'], ['30%', 'auto', '270px', 'tr'],
+    [SIDE, 'auto', '85px', 'br'], ['auto', SIDE, '84px', 'bl'], [SIDE, 'auto', '270px', 'tr'],
+    ['auto', SIDE, '290px', 'tl'], ['32%', 'auto', '72px', 'bl'],
   ];
   let lastSpot = 0;
   function scatterBubble() {
     if (!matchMedia('(max-width: 900px)').matches) return;
     lastSpot = (lastSpot + 1 + Math.floor(Math.random() * (BUBBLE_SPOTS.length - 1))) % BUBBLE_SPOTS.length;
     const [l, r, t, tip] = BUBBLE_SPOTS[lastSpot];
-    const shift = () => Math.round(Math.random() * 16 - 8);
     bubble.style.setProperty('--bx', l); bubble.style.setProperty('--brx', r); bubble.style.setProperty('--by', t);
-    bubble.style.margin = shift() + 'px ' + shift() + 'px 0 ' + shift() + 'px';
     bubble.dataset.tip = tip;
   }
 
@@ -272,6 +269,7 @@
   let parallaxQueued = false;
   function parallax() {
     parallaxQueued = false;
+    if (innerWidth <= 900) return;
     const r = work.getBoundingClientRect();
     const p = Math.max(0, Math.min(1, (innerHeight - r.top) / (innerHeight + r.height)));
     workBg.style.setProperty('--py', ((p - .5) * .6 * r.height).toFixed(1) + 'px');
