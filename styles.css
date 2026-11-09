@@ -452,6 +452,8 @@ h2.work__title { max-width: none; }
   .contact__links { gap: 12px; }
   .contact__word { margin: clamp(28px, 5vw, 44px) 0 0; }
   #contact .foot { padding-top: 24px; padding-bottom: 28px; align-items: center; }
+  #contact .foot a { display: none; }
+  .to-top.is-shown.in-foot { opacity: 1; visibility: visible; transform: none; }
 }
 @media (max-width: 560px) {
   .panel { --cat-chin: 267px; }
@@ -462,7 +464,4 @@ h2.work__title { max-width: none; }
   h1 { margin-bottom: 22px; }
   .floatbar { justify-content: space-between; }
   .floatbar .logo { display: flex; }
-  #contact .foot a { display: none; }
-  .to-top.is-shown { opacity: 0; visibility: hidden; }
-  .to-top.is-shown.in-foot { opacity: 1; visibility: visible; transform: none; }
 }
