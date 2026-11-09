@@ -64,16 +64,26 @@
   /* ---------- Репліки й реакції ---------- */
   let bubbleTimer;
   // Планшет і телефон: кіт щоразу говорить з іншого боку голови
-  const BUBBLE_SPOTS = [['16px', 'auto', '118px'], ['auto', '16px', '104px'], ['16px', 'auto', '250px'], ['auto', '16px', '276px']];
+  // Гострий куточок (tip) завжди дивиться на кота
+  const SIDE = 'max(16px, calc(50% - 340px))';
+  const BUBBLE_SPOTS = [
+    [SIDE, 'auto', '84px', 'br'], ['auto', SIDE, '78px', 'bl'],
+    [SIDE, 'auto', '134px', 'br'], [SIDE, 'auto', '258px', 'tr'],
+    ['auto', SIDE, '286px', 'tl'], ['30%', 'auto', '270px', 'tr'],
+  ];
   let lastSpot = 0;
-  function placeBubble() {
+  function scatterBubble() {
     if (!matchMedia('(max-width: 900px)').matches) return;
     lastSpot = (lastSpot + 1 + Math.floor(Math.random() * (BUBBLE_SPOTS.length - 1))) % BUBBLE_SPOTS.length;
-    const [l, r, t] = BUBBLE_SPOTS[lastSpot];
+    const [l, r, t, tip] = BUBBLE_SPOTS[lastSpot];
+    const shift = () => Math.round(Math.random() * 16 - 8);
     bubble.style.setProperty('--bx', l); bubble.style.setProperty('--brx', r); bubble.style.setProperty('--by', t);
+    bubble.style.margin = shift() + 'px ' + shift() + 'px 0 ' + shift() + 'px';
+    bubble.dataset.tip = tip;
   }
+
   function say(text, ms = 2600) {
-    placeBubble();
+    scatterBubble();
     bubble.textContent = text;
     bubble.classList.add('on');
     clearTimeout(bubbleTimer);
@@ -428,10 +438,16 @@
   /* ---------- Меню на весь екран (планшет і телефон) ---------- */
   const menu = document.createElement('div');
   menu.className = 'menu';
-  menu.innerHTML = '<div class="top menu__top">' + document.querySelector('.top').innerHTML + '</div><nav class="menu__nav"></nav>';
+  menu.innerHTML = '<button class="burger menu__close" type="button" aria-label="Закрити меню"><i></i><i></i><i></i></button><nav class="menu__nav"></nav>';
   const menuNav = menu.querySelector('.menu__nav');
-  document.querySelectorAll('.top .pills a:not(.tg)').forEach((a) => menuNav.append(a.cloneNode(true)));
+  const menuArrow = document.querySelector('#toWork .btn__arrow');
+  document.querySelectorAll('.top .pills a:not(.tg)').forEach((a) => {
+    const link = a.cloneNode(true);
+    link.append(menuArrow.cloneNode(true));
+    menuNav.append(link);
+  });
   menu.append(document.querySelector('#contact .btn--yellow').cloneNode(true));
+  menu.insertAdjacentHTML('beforeend', '<div class="menu__peek" aria-hidden="true"><img src="assets/cat-head.webp?v=2" alt="" width="440" height="391"></div>');
   document.body.append(menu);
   function setMenu(open) {
     menu.classList.toggle('on', open);
