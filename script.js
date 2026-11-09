@@ -332,6 +332,76 @@
   caseView.addEventListener('click', (e) => { if (e.target === caseView || e.target === caseViewIn) hideCase(); });
   addEventListener('keydown', (e) => { if (e.key === 'Escape') hideCase(); });
 
+  /* ---------- Примітки кота прилітають справа ---------- */
+  if (!calm && 'IntersectionObserver' in window) {
+    const noteHeads = [...document.querySelectorAll('.section__head')].filter((head) => head.querySelector('.note'));
+    noteHeads.forEach((head) => head.querySelector('.note').classList.add('fly'));
+    // Стежимо за заголовком: сама примітка стартує за межами екрана
+    const notesIn = new IntersectionObserver((entries, o) => entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.querySelector('.note').classList.add('in');
+      o.unobserve(e.target);
+    }), { rootMargin: '0px 0px -20% 0px' });
+    noteHeads.forEach((head) => notesIn.observe(head));
+  }
+
+  /* ---------- «Про мене» наїжджає на «Як я працюю» ---------- */
+  const stack = $('stack');
+  if (stack) {
+    const proc = $('process'), about = $('about');
+    const wide = matchMedia('(min-width: 901px)');
+    let travel = 0;
+    function fadeRule() {
+      if (!stack.classList.contains('on')) return about.style.removeProperty('--rule');
+      const left = about.getBoundingClientRect().top / travel;
+      about.style.setProperty('--rule', Math.max(0, Math.min(1, left / .12)).toFixed(3));
+    }
+    function measureStack() {
+      const on = wide.matches;
+      if (on) {
+        const top = Math.min(0, innerHeight - proc.offsetHeight);
+        travel = innerHeight;
+        stack.style.setProperty('--proc-top', top + 'px');
+        stack.style.setProperty('--d', travel + 'px');
+        about.style.setProperty('--d', travel + 'px');
+      }
+      stack.classList.toggle('on', on);
+      fadeRule();
+    }
+    measureStack();
+    new ResizeObserver(measureStack).observe(proc);
+    addEventListener('resize', measureStack);
+    wide.addEventListener('change', measureStack);
+    addEventListener('scroll', () => requestAnimationFrame(fadeRule), { passive: true });
+  }
+
+  /* ---------- Меню при прокрутці вгору ---------- */
+  const floatBar = document.createElement('div');
+  floatBar.className = 'floatbar';
+  floatBar.innerHTML = document.querySelector('.top').innerHTML;
+  document.body.append(floatBar);
+  let lastY = scrollY;
+  addEventListener('scroll', () => {
+    const y = scrollY, dy = y - lastY;
+    if (Math.abs(dy) < 4) return;
+    floatBar.classList.toggle('show', dy < 0 && y > innerHeight * .8);
+    lastY = y;
+  }, { passive: true });
+
+  /* ---------- «Про мене»: точно на початок секції ---------- */
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href="#about"]');
+    if (!link) return;
+    e.preventDefault();
+    const about = $('about'), target = () => Math.round(about.getBoundingClientRect().top + scrollY);
+    scrollTo({ top: target(), behavior: calm ? 'auto' : 'smooth' });
+    // Висоти секцій могли змінитися дорогою: доводимо точно
+    addEventListener('scrollend', () => {
+      if (Math.abs(about.getBoundingClientRect().top) > 1) scrollTo({ top: target(), behavior: 'auto' });
+    }, { once: true });
+    history.replaceState(null, '', '#about');
+  });
+
   addEventListener('resize', () => { placeBubble(); placeSpin(); });
   placeBubble();
   placeSpin();
