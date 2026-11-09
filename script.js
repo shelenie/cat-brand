@@ -386,6 +386,26 @@
     }), { threshold: .35 }).observe(aboutCat.parentElement);
   }
 
+  /* ---------- Велике слово у футері на всю ширину ---------- */
+  const footWord = $('footWord');
+  function fitFootWord() {
+    footWord.style.fontSize = '100px';
+    footWord.style.fontSize = (100 * footWord.parentElement.clientWidth / footWord.getBoundingClientRect().width).toFixed(2) + 'px';
+  }
+  // Слово показуємо вже в потрібному шрифті й розмірі, висоту блоку задано в CSS
+  footWord.style.visibility = 'hidden';
+  fitFootWord();
+  document.fonts.ready.then(() => {
+    fitFootWord();
+    footWord.style.visibility = '';
+    // Шрифти змінили висоту секцій: повертаємось точно до якоря з адреси
+    const anchor = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
+    if (anchor) scrollTo({ top: Math.round(anchor.getBoundingClientRect().top + scrollY), behavior: 'instant' });
+  });
+  addEventListener('resize', fitFootWord);
+  // Кнопка «вгору» не заважає великому слову
+  new IntersectionObserver(([e]) => toTop.classList.toggle('in-foot', e.isIntersecting)).observe(footWord);
+
   /* ---------- Меню при прокрутці вгору ---------- */
   const floatBar = document.createElement('div');
   floatBar.className = 'floatbar';
