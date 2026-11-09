@@ -13,6 +13,7 @@
   /* Основні кольори */
   --ink: #13334a;
   --ink-rgb: 19, 51, 74;
+  --ink-light: #45657b;
   --cream: #f7f6ef;
   --cream-rgb: 247, 246, 239;
   --yellow: #ffff75;
@@ -25,6 +26,7 @@
   --teal-card: #5b8ea1;
   --teal-card-rgb: 91, 142, 161;
   --mist: #c3d6de;
+  --sky: #dcebf3;
   --aqua-rgb: 132, 203, 218;
   --lagoon-rgb: 62, 120, 145;
   --deep-rgb: 27, 66, 92;
@@ -35,8 +37,10 @@
   --warn: #ff9a76;
 
   /* Градієнти */
-  --grad-sky: linear-gradient(-45deg, rgba(216, 235, 243, .94), rgba(196, 226, 240, .94) 25%, rgba(222, 238, 245, .94) 50%, rgba(251, 243, 232, .94) 70%, rgba(208, 231, 242, .94));
+  --grad-sky: linear-gradient(-45deg, rgba(230, 242, 248, .94), rgba(196, 226, 240, .94) 25%, rgba(222, 238, 245, .94) 50%, rgba(230, 242, 248, .94) 70%, rgba(208, 231, 242, .94));
   --grad-cat-card: linear-gradient(180deg, rgb(112, 152, 159), rgb(128, 169, 175) 50%, rgb(175, 205, 207));
+
+  --grad-studio: radial-gradient(58% 95% at 90% 0%, rgba(var(--aqua-rgb), .5), rgba(var(--aqua-rgb), 0) 72%), radial-gradient(52% 90% at 4% 100%, rgba(var(--aqua-rgb), .34), rgba(var(--aqua-rgb), 0) 72%), linear-gradient(135deg, var(--teal-deep), #2f6a84 55%, var(--teal-deep));
 
   /* Скруглення: тільки ці значення */
   --r-section: 38px;    /* секції */

@@ -1,10 +1,13 @@
 (() => {
-  // Після перезавантаження завжди починаємо з верху сайту
+  // Після перезавантаження лишаємось там, де були; новий візит починається згори
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
-  const toStart = () => scrollTo({ top: 0, behavior: 'instant' });
-  toStart();
-  addEventListener('pageshow', toStart, { once: true });
+  const navType = (performance.getEntriesByType('navigation')[0] || {}).type;
+  let savedY = null;
+  try { savedY = navType === 'reload' ? Number(sessionStorage.getItem('scrollY')) : null; } catch (e) {}
+  const restoreY = () => { if (savedY) scrollTo({ top: savedY, behavior: 'instant' }); };
+  restoreY();
+  addEventListener('load', restoreY, { once: true });
+  addEventListener('pagehide', () => { try { sessionStorage.setItem('scrollY', String(scrollY)); } catch (e) {} });
 
   const $ = (id) => document.getElementById(id);
   const svg = $('cat'), panel = $('panel'), spin = $('spin'), arrow = $('spinArrow'), spinText = $('spinText');
@@ -263,6 +266,30 @@
     }), { threshold: 0.15 });
     showOnce.observe(workTitle);
     cases.forEach((el, i) => { el.style.setProperty('--n', i); showOnce.observe(el); });
+    const steps = document.querySelector('.steps');
+    if (!calm) steps.classList.add('anim');
+    const stepItems = [...steps.querySelectorAll('li')];
+    stepItems.forEach((el, i) => el.style.setProperty('--n', i));
+    // Запускаємо, коли картки вже на екрані, а не тільки-но з'явились знизу
+    const stepsIn = new IntersectionObserver((entries, o) => entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      stepItems.forEach((el) => el.classList.add('in'));
+      o.disconnect();
+    }), { rootMargin: '0px 0px -35% 0px' });
+    stepsIn.observe(steps);
+    // Кіт коментує кроки
+    const procNote = $('procNote'), procDefault = procNote.textContent;
+    let procTimer;
+    const setProc = (text) => {
+      if (procNote.textContent === text) return;
+      procNote.classList.add('swap');
+      clearTimeout(procTimer);
+      procTimer = setTimeout(() => { procNote.textContent = text; procNote.classList.remove('swap'); }, calm ? 0 : 160);
+    };
+    stepItems.forEach((el) => {
+      el.addEventListener('mouseenter', () => setProc(el.dataset.cat));
+      el.addEventListener('mouseleave', () => setProc(procDefault));
+    });
     // Сцени рухаються, лише коли картку видно
     const liveArt = new IntersectionObserver((entries) => entries.forEach((e) => {
       e.target.classList.toggle('live', e.isIntersecting);
