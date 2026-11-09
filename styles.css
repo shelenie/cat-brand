@@ -403,3 +403,66 @@ h2.work__title { max-width: none; }
 .contact__word i.drop { animation: dotX .8s cubic-bezier(.33, 1, .68, 1) both, dotY .8s both, noteFade .14s linear both; }
 @keyframes dotX { from { translate: -18vw 0; } to { translate: 0 0; } }
 @keyframes dotY { 0% { transform: translateY(-22vh); animation-timing-function: cubic-bezier(.3, .6, .6, 1); } 22% { transform: translateY(-34vh); animation-timing-function: cubic-bezier(.4, 0, .2, 1); } 100% { transform: translateY(0); } }
+
+/* Планшет і телефон. Десктоп (від 901px) ці правила не зачіпають */
+.burger { display: none; }
+@media (hover: none) { .contact__links a:hover { scale: 1; } }
+@media (max-width: 900px) {
+  html { overflow-x: hidden; }
+  body { overflow-x: clip; }
+
+  /* Бургер-меню */
+  .top { position: relative; z-index: 5; flex-direction: row; align-items: center; }
+  .burger { position: relative; display: block; flex: none; width: 44px; height: 44px; padding: 0; border: 0; background: none; color: inherit; pointer-events: auto; }
+  .burger i { position: absolute; left: 10px; right: 10px; top: 50%; height: 2px; margin-top: -1px; border-radius: 2px; background: currentColor; transition: transform .2s, opacity .2s; }
+  .burger i:nth-child(1) { transform: translateY(-7px); }
+  .burger i:nth-child(3) { transform: translateY(7px); }
+  .open > .burger i:nth-child(1) { transform: rotate(45deg); }
+  .open > .burger i:nth-child(2) { opacity: 0; }
+  .open > .burger i:nth-child(3) { transform: rotate(-45deg); }
+  .pills { display: none; }
+  .open > .pills { position: absolute; z-index: 6; right: 0; top: calc(100% + 6px); display: flex; flex-direction: column; align-items: stretch; gap: 2px; width: 220px; padding: 8px; border-radius: var(--r-note); background: rgba(var(--ink-rgb), .92); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
+  .open > .pills a { padding: 12px 14px; border-radius: var(--r-small); background: none; -webkit-backdrop-filter: none; backdrop-filter: none; color: var(--cream); font-size: 15px; }
+  .open > .pills a.tg { display: flex; align-items: center; gap: 10px; width: auto; height: auto; margin: 0; }
+  .open > .pills a.tg::after { content: "Telegram"; }
+  .floatbar.open > .pills { right: 12px; }
+
+  /* Текст під горлом кота, терпець біля правої щоки */
+  .panel { --cat-chin: max(289px, 39.4vw); }
+  .stage { height: calc(var(--cat-chin) - 2px); }
+  .cat { -webkit-mask: linear-gradient(transparent, #000 13%, #000 calc(var(--cat-chin) - 10px), transparent calc(var(--cat-chin) + 60px)); mask: linear-gradient(transparent, #000 13%, #000 calc(var(--cat-chin) - 10px), transparent calc(var(--cat-chin) + 60px)); }
+  .glass { top: calc(var(--cat-chin) + 24px); }
+  .meter { position: absolute; z-index: 3; left: calc(50% + max(144px, 19.4vw)); top: max(163px, calc(22.5vw - 2px)); flex-direction: row; align-items: stretch; gap: 6px; width: auto; max-width: none; height: 132px; margin: 0; }
+  .meter__title { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 13px; white-space: nowrap; }
+  .meter__sub { display: none; }
+  .meter__bar { width: 8px; height: auto; margin: 0; }
+  .meter__bar i { inset: auto 0 0 0; width: auto; height: calc(var(--left, 1) * 100%); transition: height .55s cubic-bezier(.3, 1.4, .5, 1), background .3s; }
+  .meter__bar i::after { animation: none; }
+
+  /* Репліки кота в різних місцях */
+  .bubble { left: var(--bx, 16px) !important; right: var(--brx, auto) !important; top: var(--by, 118px) !important; }
+
+  /* Про мене: кіт виглядає над карткою, не заходячи на текст */
+  #about .stance { margin-top: 96px; }
+
+  /* Футер */
+  #contact { min-height: 0; }
+  .contact__top { gap: 40px; }
+  #contact .contact__copy .btn { margin-top: 28px; }
+  .contact__links { gap: 12px; }
+  .contact__word { margin: clamp(28px, 5vw, 44px) 0 0; }
+  #contact .foot { padding-top: 24px; padding-bottom: 28px; align-items: center; }
+}
+@media (max-width: 560px) {
+  .panel { --cat-chin: 267px; }
+  .cat { height: 378px; }
+  .meter { left: min(calc(50% + 134px), calc(100% - 44px)); top: 150px; }
+  .card__text { font-size: 3.9cqw; }
+  .card__go { width: 13cqw; height: 9cqw; font-size: 3.4cqw; }
+  h1 { margin-bottom: 22px; }
+  .floatbar { justify-content: space-between; }
+  .floatbar .logo { display: flex; }
+  #contact .foot a { display: none; }
+  .to-top.is-shown { opacity: 0; visibility: hidden; }
+  .to-top.is-shown.in-foot { opacity: 1; visibility: visible; transform: none; }
+}

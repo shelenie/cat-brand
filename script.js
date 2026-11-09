@@ -63,7 +63,17 @@
 
   /* ---------- Репліки й реакції ---------- */
   let bubbleTimer;
+  // Планшет і телефон: кіт щоразу говорить з іншого боку голови
+  const BUBBLE_SPOTS = [['16px', 'auto', '118px'], ['auto', '16px', '104px'], ['16px', 'auto', '250px'], ['auto', '16px', '276px']];
+  let lastSpot = 0;
+  function placeBubble() {
+    if (!matchMedia('(max-width: 900px)').matches) return;
+    lastSpot = (lastSpot + 1 + Math.floor(Math.random() * (BUBBLE_SPOTS.length - 1))) % BUBBLE_SPOTS.length;
+    const [l, r, t] = BUBBLE_SPOTS[lastSpot];
+    bubble.style.setProperty('--bx', l); bubble.style.setProperty('--brx', r); bubble.style.setProperty('--by', t);
+  }
   function say(text, ms = 2600) {
+    placeBubble();
     bubble.textContent = text;
     bubble.classList.add('on');
     clearTimeout(bubbleTimer);
@@ -411,6 +421,20 @@
   addEventListener('resize', fitFootWord);
   // Кнопка «вгору» не заважає великому слову
   new IntersectionObserver(([e]) => toTop.classList.toggle('in-foot', e.isIntersecting)).observe(footWord);
+
+  /* ---------- Бургер-меню (планшет і телефон) ---------- */
+  const closeMenus = () => document.querySelectorAll('.top.open, .floatbar.open').forEach((el) => {
+    el.classList.remove('open');
+    el.querySelector('.burger').setAttribute('aria-expanded', 'false');
+  });
+  document.addEventListener('click', (e) => {
+    const burger = e.target.closest?.('.burger');
+    if (!burger) return closeMenus();
+    const bar = burger.parentElement, willOpen = !bar.classList.contains('open');
+    closeMenus();
+    bar.classList.toggle('open', willOpen);
+    burger.setAttribute('aria-expanded', String(willOpen));
+  });
 
   /* ---------- Меню при прокрутці вгору ---------- */
   const floatBar = document.createElement('div');
