@@ -19,6 +19,7 @@
   --yellow: #ffff75;
   --yellow-rgb: 255, 255, 117;
   --white: #fff;
+  --white-rgb: 255, 255, 255;
 
   /* Блакитні відтінки */
   --teal: #548da3;
@@ -38,9 +39,9 @@
 
   /* Градієнти */
   --grad-sky: linear-gradient(-45deg, rgba(230, 242, 248, .94), rgba(196, 226, 240, .94) 25%, rgba(222, 238, 245, .94) 50%, rgba(230, 242, 248, .94) 70%, rgba(208, 231, 242, .94));
-  --grad-cat-card: linear-gradient(180deg, rgb(112, 152, 159), rgb(128, 169, 175) 50%, rgb(175, 205, 207));
 
-  --grad-studio: radial-gradient(58% 95% at 90% 0%, rgba(var(--aqua-rgb), .5), rgba(var(--aqua-rgb), 0) 72%), radial-gradient(52% 90% at 4% 100%, rgba(var(--aqua-rgb), .34), rgba(var(--aqua-rgb), 0) 72%), linear-gradient(135deg, var(--teal-deep), #2f6a84 55%, var(--teal-deep));
+  --grad-floatbar: linear-gradient(90deg, rgba(92, 149, 159, .88), rgba(104, 157, 170, .88) 38%, rgba(109, 168, 179, .88) 70%, rgba(113, 179, 191, .88));
+  --grad-dir-big: linear-gradient(180deg, rgb(215, 240, 253), rgb(213, 241, 252) 50%, rgb(213, 241, 252));
 
   /* Скруглення: тільки ці значення */
   --r-section: 38px;    /* секції */
@@ -50,6 +51,13 @@
   --r-note: 14px;       /* примітки кота */
   --r-tip: 4px;         /* гострий кут примітки, виділення в тексті */
   --r-small: 8px;       /* плашки, медіа всередині карток */
+
+  /* Шари поверх сторінки */
+  --z-to-top: 40;
+  --z-floatbar: 44;
+  --z-case: 45;
+  --z-menu: 46;
+  --z-cursor: 50;
 
   /* Тіні */
   --shadow-cool: 0 1px 2px rgba(40, 70, 100, .08), 0 3px 8px rgba(40, 70, 100, .08);
@@ -98,7 +106,7 @@ h3 { font-weight: 800; font-size: 23px; line-height: 1.18; margin-bottom: 8px; }
 /* ---------- Кільце-курсор ---------- */
 .cursor { display: none; }
 @media (hover: hover) and (pointer: fine) {
-  .cursor { display: block; position: fixed; inset: 0 auto auto 0; z-index: 50; pointer-events: none; }
+  .cursor { display: block; position: fixed; inset: 0 auto auto 0; z-index: var(--z-cursor); pointer-events: none; }
   .cursor i { position: fixed; left: 0; top: 0; border-radius: 50%; will-change: transform; }
   .cursor__dot { width: 12px; height: 12px; margin: -6px; background: var(--yellow); box-shadow: 0 0 0 1.5px rgba(var(--ink-rgb), .55); }
   .cursor__ring { width: 56px; height: 56px; margin: -28px; border: 2px solid var(--cream); mix-blend-mode: difference; will-change: translate, scale; transition: scale .2s ease-out; }
@@ -107,7 +115,7 @@ h3 { font-weight: 800; font-size: 23px; line-height: 1.18; margin-bottom: 8px; }
 }
 
 /* Кнопка «вгору» зі стрілкою як на головній кнопці */
-.to-top { position: fixed; right: clamp(16px, 2vw, 28px); bottom: clamp(16px, 2vw, 28px); z-index: 40; width: 56px; height: 56px; border: 0; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--cream); box-shadow: 0 0 0 1.5px rgba(var(--cream-rgb), .55), var(--shadow-float); cursor: pointer; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .3s, transform .3s, visibility .3s, background .2s, color .2s; }
+.to-top { position: fixed; right: clamp(16px, 2vw, 28px); bottom: clamp(16px, 2vw, 28px); z-index: var(--z-to-top); width: 56px; height: 56px; border: 0; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--cream); box-shadow: 0 0 0 1.5px rgba(var(--cream-rgb), .55), var(--shadow-float); cursor: pointer; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .3s, transform .3s, visibility .3s, background .2s, color .2s; }
 .to-top.is-shown { opacity: 1; visibility: visible; transform: none; }
 .to-top svg { width: 28px; transform: rotate(-90deg); }
 @media (hover: hover) { .to-top:hover { background: var(--yellow); color: var(--ink); } }

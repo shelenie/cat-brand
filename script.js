@@ -164,10 +164,10 @@
   const toScreen = (x, y) => new DOMPoint(x, y).matrixTransform(svg.getScreenCTM());
 
   function placeBubble() {
-    if (innerWidth <= 900) return;
+    if (innerWidth <= 900) { bubble.style.left = bubble.style.top = ''; return; }
     const p = toScreen(905, 165), r = panel.getBoundingClientRect();
     bubble.style.left = Math.min(p.x - r.left, r.width - 290) + 'px';
-    bubble.style.top = Math.max(p.y - r.top, 84) + 'px';
+    bubble.style.top = Math.max(p.y - r.top - 44, 84) + 'px';
   }
 
   /* ---------- Куди дивиться кіт ---------- */
