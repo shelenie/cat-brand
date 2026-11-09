@@ -336,12 +336,14 @@ h2.work__title { max-width: none; }
 #contact .foot { padding: clamp(14px, 1.4vw, 20px) 0 22px; color: var(--cream); }
 #contact .foot { font-weight: 500; font-size: 14px; }
 #contact .foot a { text-decoration: none; transition: color .2s; }
-#contact .foot a i { display: inline-block; margin-left: 4px; font-style: normal; transition: transform .2s; }
+#contact .foot a i { display: inline-block; vertical-align: -3px; margin-left: 4px; font-style: normal; transition: transform .2s; }
+#contact .foot a i svg { display: block; width: auto; height: 17px; }
 #contact .foot a:hover { color: var(--yellow); }
 #contact .foot a:hover i { transform: translateY(-3px); }
 #contact h2 { max-width: 15em; font: 900 clamp(24px, 2.4vw, 36px)/1.12 var(--display); letter-spacing: -.02em; }
 #contact .big { margin-top: 12px; font-size: clamp(16px, 1.25vw, 18px); font-weight: 500; }
 #contact .btn--yellow { padding: 13px 24px; font-size: 14px; }
+#contact .btn__arrow { width: 22px; }
 #contact .contact__copy .btn { margin-top: 24px; }
 .to-top.is-shown.in-foot { opacity: 0; visibility: hidden; }
 .contact__top { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px 48px; }
@@ -353,6 +355,16 @@ h2.work__title { max-width: none; }
 .contact__links span { font-size: 14px; line-height: 1.35; overflow-wrap: anywhere; }
 .contact__links small { margin-top: 5px; font-size: 13px; line-height: 1.25; opacity: .8; }
 @media (min-width: 901px) { .contact__top { flex: 1; } #contact .contact__copy { align-self: flex-start; } .contact__links { align-self: flex-start; } }
+/* Мурована сітка: ліворуч дві високі картки, праворуч три низькі */
+@media (min-width: 621px) {
+  .contact__links { grid-template-rows: repeat(6, 40px); }
+  .contact__links a:nth-child(1) { grid-area: 1 / 1 / 4 / 2; }
+  .contact__links a:nth-child(3) { grid-area: 4 / 1 / 7 / 2; }
+  .contact__links a:nth-child(2) { grid-area: 1 / 2 / 3 / 3; }
+  .contact__links a:nth-child(4) { grid-area: 3 / 2 / 5 / 3; }
+  .contact__links a:nth-child(5) { grid-area: 5 / 2 / 7 / 3; }
+  .contact__links small { margin-top: auto; }
+}
 @media (max-width: 900px) { .contact__links { width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px) { .contact__links { grid-template-columns: minmax(0, 1fr); } }
 .contact__word { margin: auto calc(12px - clamp(22px, 5vw, 72px)) 0; height: calc(clamp(32px, 3.5vw, 52px) + 8.34vw); padding-top: clamp(32px, 3.5vw, 52px); color: var(--cream); font-family: var(--display); font-weight: 900; line-height: .8; letter-spacing: -.03em; white-space: nowrap; }
