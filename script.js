@@ -256,7 +256,7 @@
   let c = 0;
   const label = workTitle.textContent;
   workTitle.setAttribute('aria-label', label);
-  workTitle.innerHTML = label.split(' ').map((w) => '<span class="w" aria-hidden="true">' + [...w].map((l) => '<span class="c" style="--c:' + (c++) + '">' + l + '</span>').join('') + '</span>').join(' ');
+  workTitle.innerHTML = label.split(' ').map((w) => '<span class="w" aria-hidden="true">' + [...w.replace(/,$/, '')].map((l) => '<span class="c" style="--c:' + (c++) + '">' + l + '</span>').join('') + '</span>' + (w.endsWith(',') ? '<span aria-hidden="true">,</span>' : '')).join(' ');
   if ('IntersectionObserver' in window) {
     if (!calm) { workGrid.classList.add('anim'); workTitle.classList.add('is-split'); }
     const showOnce = new IntersectionObserver((entries) => entries.forEach((e) => {
@@ -375,13 +375,32 @@
     addEventListener('scroll', () => requestAnimationFrame(fadeRule), { passive: true });
   }
 
+  /* ---------- Кіт визирає з-за фото ---------- */
+  const aboutCat = $('aboutCat');
+  if (aboutCat && !calm) {
+    aboutCat.classList.add('down');
+    new IntersectionObserver((entries, o) => entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      aboutCat.classList.remove('down');
+      o.disconnect();
+    }), { threshold: .35 }).observe(aboutCat.parentElement);
+  }
+
   /* ---------- Меню при прокрутці вгору ---------- */
   const floatBar = document.createElement('div');
   floatBar.className = 'floatbar';
   floatBar.innerHTML = document.querySelector('.top').innerHTML;
   document.body.append(floatBar);
-  let lastY = scrollY;
+  let lastY = scrollY, navTimer = 0;
+  // Після кліку по пункту меню воно ховається і не з'являється, доки триває переїзд
+  const waitNav = () => { clearTimeout(navTimer); navTimer = setTimeout(() => { navTimer = 0; lastY = scrollY; }, 200); };
+  floatBar.addEventListener('click', (e) => {
+    if (!e.target.closest('a[href^="#"]')) return;
+    floatBar.classList.remove('show');
+    waitNav();
+  });
   addEventListener('scroll', () => {
+    if (navTimer) { waitNav(); return; }
     const y = scrollY, dy = y - lastY;
     if (Math.abs(dy) < 4) return;
     floatBar.classList.toggle('show', dy < 0 && y > innerHeight * .8);

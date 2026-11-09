@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="global.css?v=163">
-<link rel="stylesheet" href="styles.css?v=163">
+<link rel="stylesheet" href="global.css?v=180">
+<link rel="stylesheet" href="styles.css?v=180">
 </head>
 <body data-state="play">
 
@@ -127,7 +127,7 @@
 <main>
   <section class="section" id="directions">
     <div class="section__head">
-      <h2>З чим до мене приходять</h2>
+      <h2>З чим <span class="hl">до мене</span> приходять</h2>
       <p class="note cat-note"><b>Примітка кота:</b> <span id="catNote">затвердив усі шість. Неохоче.</span></p>
     </div>
     <div class="bento">
@@ -196,7 +196,7 @@
 
   <section class="section" id="process">
     <div class="section__head">
-      <h2>Як я працюю</h2>
+      <h2>Як я <span class="hl">працюю</span></h2>
       <p class="note process__note"><span><b>Примітка кота:</b> <span id="procNote">якщо задачу можна вирішити простіше, її вирішать простіше. Кіт за.</span></span></p>
     </div>
     <ol class="steps">
@@ -210,16 +210,25 @@
   </div>
 
   <section class="section" id="about">
+    <div class="section__head about__head">
+      <h2>Привіт, <span class="hl">це я</span></h2>
+      <p class="note process__note about__note"><span><b>Примітка кота:</b> годує вчасно. Автоматизує все, крім мене.</span></p>
+    </div>
     <div class="about__me">
-      <img class="about__photo" src="assets/olena.webp" alt="Олена Шепель" width="800" height="1000" loading="lazy">
+      <figure class="about__fig">
+        <img class="about__photo" src="assets/olena.webp" alt="Олена Шепель" width="800" height="1000" loading="lazy">
+        <figcaption class="about__cap"><b>Олена Шепель</b><span>AI, автоматизація, веброзробка</span></figcaption>
+      </figure>
       <div class="about__text">
-        <h2>Про мене</h2>
-        <p class="big">Працюю на перетині AI, автоматизації, інтеграцій, даних і веброзробки. Підбираю інструменти під задачу, а не навпаки.</p>
-        <p>Спікер, проводжу лекції, пояснюю принципи роботи штучного інтелекту широкій аудиторії.</p>
-        <p>Поєдную технічну роботу з розумінням бізнес-процесів, постійно досліджую нові інструменти й перевіряю їх на практиці.</p>
+        <p class="big">Працюю на перетині AI, автоматизації, інтеграцій, даних і веброзробки. Підбираю інструменти під задачу, а не навпаки. За потреби пояснюю складне «на пальцях».</p>
+        <div class="about__cols">
+          <p>Перш ніж щось будувати, розбираюсь, як у вас насправді ведеться робота. Поєдную технічне налаштування з розумінням бізнес-процесів. Постійно досліджую нові інструменти й перевіряю їх на практиці.</p>
+          <p>Спікер, виступаю з лекціями про AI для широкої аудиторії: як він влаштований, де помиляється і чому йому не варто вірити на слово.</p>
+        </div>
         <aside class="stance">
-          <h3>Без магії та зайвого хайпу</h3>
-          <p>AI для мене робочий інструмент із можливостями й обмеженнями. Звертаю увагу на перевірку результатів, безпеку даних і те, чи справді технологія потрібна в конкретному процесі.</p>
+          <div class="about__peek"><img id="aboutCat" src="assets/cat-head.webp?v=2" alt="" aria-hidden="true"></div>
+          <h3>AI теж помиляється</h3>
+          <p>Для мене це робочий інструмент зі своїми можливостями й межами. Тому перевіряю результати, стежу за безпекою даних і чесно кажу, коли технологія у вашому процесі зайва.</p>
         </aside>
       </div>
     </div>
@@ -231,7 +240,6 @@
       <p class="big">Навіть якщо ви не знаєте, як вона називається. Кіт теж не знав.</p>
       <a class="btn btn--yellow" href="https://t.me/shelenie" target="_blank" rel="noopener noreferrer">Обговорити проєкт <span aria-hidden="true">→</span></a>
     </div>
-    <div class="contact__cat" aria-hidden="true"></div>
     <footer class="foot"><span>© Olena Shepel</span><a href="#top">Повернутися до кота ↑</a></footer>
   </section>
 </main>
@@ -239,6 +247,6 @@
 
 <div class="case-view" id="caseView" role="dialog" aria-modal="true" aria-label="Проєкт" hidden><button class="case-view__close" id="caseClose" type="button" aria-label="Закрити"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16"/></svg></button><div class="case-view__in" id="caseViewIn"></div></div>
 <button class="to-top" id="toTop" type="button" aria-label="Прокрутити вгору"><svg viewBox="0 0 64 40" aria-hidden="true"><path d="M3 20H61M42 3C45 11 52 17 61 20C52 23 45 29 42 37" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<script src="script.js?v=163"></script>
+<script src="script.js?v=180"></script>
 </body>
 </html>
