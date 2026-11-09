@@ -431,7 +431,7 @@ h2.work__title { max-width: none; }
   .menu { position: fixed; inset: 0; z-index: 46; display: flex; flex-direction: column; overflow-y: auto; padding: 76px 16px 24px; color: var(--cream); background: var(--ink); opacity: 0; visibility: hidden; transition: opacity .22s, visibility .22s; }
   .menu.on { opacity: 1; visibility: visible; }
   .menu__close { position: absolute; top: 16px; right: 16px; border-radius: 50%; background: var(--cream); color: var(--ink); }
-  .menu__word { position: absolute; top: 16px; left: 16px; font: 900 24px/44px var(--display); letter-spacing: -.03em; white-space: nowrap; color: var(--cream); }
+  .menu__word { position: absolute; top: 16px; left: 16px; font: 900 min(40px, calc((100vw - 88px) / 9.45))/44px var(--display); letter-spacing: -.03em; white-space: nowrap; color: var(--cream); }
   .menu__word i { font-style: normal; color: var(--yellow); }
   .menu__nav { display: flex; flex-direction: column; margin-top: clamp(64px, 11vh, 110px); border-bottom: 1px solid rgba(var(--cream-rgb), .25); }
   .menu__nav a { display: flex; align-items: center; justify-content: space-between; padding: 16px 2px; border-top: 1px solid rgba(var(--cream-rgb), .25); font: 800 14px/1.2 var(--text); letter-spacing: .03em; text-transform: uppercase; text-decoration: none; color: var(--cream); }
@@ -474,18 +474,19 @@ h2.work__title { max-width: none; }
   .work__bg { top: 0; height: 100%; transform: none; will-change: auto; }
 
   /* Однакові відступи між секціями */
-  body { --sec: clamp(56px, 9vw, 72px); }
+  body { --sec: clamp(76px, 11vw, 96px); }
   #directions, #work { padding-top: var(--sec); padding-bottom: var(--sec); }
   #process { padding-top: calc(var(--r-section) + var(--sec)); padding-bottom: var(--sec); }
   #about { padding-top: var(--sec); padding-bottom: calc(var(--r-section) + var(--sec)); }
   #contact { padding-top: var(--sec); }
 
   /* Повітря всередині секцій. Проміжки між картками не змінюємо */
-  .section__head { gap: 20px 40px; margin-bottom: 36px; }
+  .section__head { gap: 24px 40px; margin-bottom: 44px; }
   .panel { padding-bottom: 32px; }
-  .side { margin-top: 40px; }
-  .about__me { gap: 32px; }
-  .about__cols { gap: 20px; margin-bottom: 32px; }
+  .side { margin-top: 52px; }
+  .about__me { gap: 40px; }
+  .about__cols { gap: 24px; margin-bottom: 40px; }
+  .work__grid { gap: 24px; }
   #contact .foot { padding-top: 24px; padding-bottom: 28px; align-items: center; }
   #contact .foot a { display: none; }
   .to-top.is-shown.in-foot { opacity: 1; visibility: visible; transform: none; }
