@@ -249,7 +249,10 @@
   const toggleTop = () => toTop.classList.toggle('is-shown', scrollY > innerHeight * 0.9);
   addEventListener('scroll', toggleTop, { passive: true });
   toggleTop();
-  toTop.addEventListener('click', () => scrollTo({ top: 0 }));
+  toTop.addEventListener('click', () => {
+    history.replaceState(null, '', location.pathname + location.search);
+    scrollTo({ top: 0 });
+  });
 
   /* ---------- Роботи: заголовок по літерах, поява, нахил ---------- */
   const work = $('work'), workGrid = $('workGrid'), workTitle = $('workTitle');
@@ -422,19 +425,25 @@
   // Кнопка «вгору» не заважає великому слову
   new IntersectionObserver(([e]) => toTop.classList.toggle('in-foot', e.isIntersecting)).observe(footWord);
 
-  /* ---------- Бургер-меню (планшет і телефон) ---------- */
-  const closeMenus = () => document.querySelectorAll('.top.open, .floatbar.open').forEach((el) => {
-    el.classList.remove('open');
-    el.querySelector('.burger').setAttribute('aria-expanded', 'false');
-  });
+  /* ---------- Меню на весь екран (планшет і телефон) ---------- */
+  const menu = document.createElement('div');
+  menu.className = 'menu';
+  menu.innerHTML = '<div class="top menu__top">' + document.querySelector('.top').innerHTML + '</div><nav class="menu__nav"></nav>';
+  const menuNav = menu.querySelector('.menu__nav');
+  document.querySelectorAll('.top .pills a:not(.tg)').forEach((a) => menuNav.append(a.cloneNode(true)));
+  menu.append(document.querySelector('#contact .btn--yellow').cloneNode(true));
+  document.body.append(menu);
+  function setMenu(open) {
+    menu.classList.toggle('on', open);
+    document.documentElement.classList.toggle('menu-open', open);
+    document.querySelectorAll('.burger').forEach((b) => b.setAttribute('aria-expanded', String(open)));
+  }
   document.addEventListener('click', (e) => {
-    const burger = e.target.closest?.('.burger');
-    if (!burger) return closeMenus();
-    const bar = burger.parentElement, willOpen = !bar.classList.contains('open');
-    closeMenus();
-    bar.classList.toggle('open', willOpen);
-    burger.setAttribute('aria-expanded', String(willOpen));
+    if (e.target.closest?.('.burger')) setMenu(!menu.classList.contains('on'));
+    else if (e.target.closest?.('.menu a')) setMenu(false);
   });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+  matchMedia('(min-width: 901px)').addEventListener('change', () => setMenu(false));
 
   /* ---------- Меню при прокрутці вгору ---------- */
   const floatBar = document.createElement('div');

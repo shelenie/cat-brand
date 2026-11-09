@@ -405,7 +405,7 @@ h2.work__title { max-width: none; }
 @keyframes dotY { 0% { transform: translateY(-22vh); animation-timing-function: cubic-bezier(.3, .6, .6, 1); } 22% { transform: translateY(-34vh); animation-timing-function: cubic-bezier(.4, 0, .2, 1); } 100% { transform: translateY(0); } }
 
 /* Планшет і телефон. Десктоп (від 901px) ці правила не зачіпають */
-.burger { display: none; }
+.burger, .menu { display: none; }
 @media (hover: none) { .contact__links a:hover { scale: 1; } }
 @media (max-width: 900px) {
   html { overflow-x: hidden; }
@@ -417,15 +417,22 @@ h2.work__title { max-width: none; }
   .burger i { position: absolute; left: 10px; right: 10px; top: 50%; height: 2px; margin-top: -1px; border-radius: 2px; background: currentColor; transition: transform .2s, opacity .2s; }
   .burger i:nth-child(1) { transform: translateY(-7px); }
   .burger i:nth-child(3) { transform: translateY(7px); }
-  .open > .burger i:nth-child(1) { transform: rotate(45deg); }
-  .open > .burger i:nth-child(2) { opacity: 0; }
-  .open > .burger i:nth-child(3) { transform: rotate(-45deg); }
-  .pills { display: none; }
-  .open > .pills { position: absolute; z-index: 6; right: 0; top: calc(100% + 6px); display: flex; flex-direction: column; align-items: stretch; gap: 2px; width: 220px; padding: 8px; border-radius: var(--r-note); background: rgba(var(--ink-rgb), .92); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
-  .open > .pills a { padding: 12px 14px; border-radius: var(--r-small); background: none; -webkit-backdrop-filter: none; backdrop-filter: none; color: var(--cream); font-size: 15px; }
-  .open > .pills a.tg { display: flex; align-items: center; gap: 10px; width: auto; height: auto; margin: 0; }
-  .open > .pills a.tg::after { content: "Telegram"; }
-  .floatbar.open > .pills { right: 12px; }
+  .menu .burger i:nth-child(1) { transform: rotate(45deg); }
+  .menu .burger i:nth-child(2) { opacity: 0; }
+  .menu .burger i:nth-child(3) { transform: rotate(-45deg); }
+  .top, .floatbar { gap: 6px; }
+  .top .logo, .floatbar .logo { margin-right: auto; }
+  .pills a:not(.tg) { display: none; }
+  .pills a.tg { width: 44px; height: 44px; margin: 0; }
+  .pills a.tg svg { width: 24px; height: 24px; }
+
+  /* Меню на весь екран у стилі хіро */
+  html.menu-open { overflow: hidden; }
+  .menu { position: fixed; inset: 0; z-index: 46; display: flex; flex-direction: column; padding: 16px 16px max(24px, env(safe-area-inset-bottom)); color: var(--cream); background: var(--teal); opacity: 0; visibility: hidden; transition: opacity .22s, visibility .22s; }
+  .menu.on { opacity: 1; visibility: visible; }
+  .menu__nav { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: clamp(10px, 2.4vh, 22px); }
+  .menu__nav a { font: 900 clamp(32px, 9.5vw, 58px)/1.08 var(--display); letter-spacing: -.035em; text-transform: uppercase; text-decoration: none; color: var(--cream); }
+  .menu > .btn { justify-content: center; align-self: stretch; }
 
   /* Текст під горлом кота, терпець біля правої щоки */
   .panel { --cat-chin: max(289px, 39.4vw); }
