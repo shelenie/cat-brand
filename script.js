@@ -66,10 +66,7 @@
   // Планшет і телефон: кіт щоразу говорить з іншого боку голови
   // Гострий куточок (tip) завжди дивиться на кота
   const SIDE = 'max(16px, calc(50% - 340px))';
-  const BUBBLE_SPOTS = [
-    [SIDE, 'auto', '85px', 'br'], ['auto', SIDE, '84px', 'bl'], [SIDE, 'auto', '270px', 'tr'],
-    ['auto', SIDE, '290px', 'tl'], ['32%', 'auto', '72px', 'bl'],
-  ];
+  const BUBBLE_SPOTS = [[SIDE, 'auto', '85px', 'br'], ['auto', SIDE, '84px', 'bl'], [SIDE, 'auto', '270px', 'tr']];
   let lastSpot = 0;
   // Ширина плашки дорівнює найдовшому рядку тексту
   function fitBubble() {
@@ -78,6 +75,13 @@
     bubble.style.transition = 'none'; bubble.style.transform = 'none';
     const range = document.createRange();
     range.selectNodeContents(bubble);
+    // Довгу репліку розширюємо, доки вона не вміститься у два рядки
+    const limit = innerWidth - 32;
+    bubble.style.maxWidth = 'none';
+    for (let w = 200; ; w += 20) {
+      bubble.style.width = Math.min(w, limit) + 'px';
+      if (w >= limit || new Set([...range.getClientRects()].map((r) => Math.round(r.top))).size <= 2) break;
+    }
     const line = Math.max(...[...range.getClientRects()].map((r) => r.width));
     const cs = getComputedStyle(bubble);
     bubble.style.width = Math.ceil(line + parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight)) + 1 + 'px';
@@ -139,7 +143,7 @@
     }
     setCopy('work');
     say('Так. Слухаю.', 2200);
-    if (scroll) setTimeout(() => $('directions').scrollIntoView(), calm ? 0 : 1700);
+    if (scroll) setTimeout(() => $('directions').scrollIntoView(), calm ? 0 : 400);
   }
   $('toWork').addEventListener('click', () => goToWork());
   $('spin').addEventListener('click', () => goToWork());
@@ -451,7 +455,7 @@
   /* ---------- Меню на весь екран (планшет і телефон) ---------- */
   const menu = document.createElement('div');
   menu.className = 'menu';
-  menu.innerHTML = '<button class="burger menu__close" type="button" aria-label="Закрити меню"><i></i><i></i><i></i></button><nav class="menu__nav"></nav>';
+  menu.innerHTML = '<button class="burger menu__close" type="button" aria-label="Закрити меню"><i></i><i></i><i></i></button><div class="menu__word" aria-hidden="true">OLENA SHEPEL<i>.</i></div><nav class="menu__nav"></nav>';
   const menuNav = menu.querySelector('.menu__nav');
   const menuArrow = document.querySelector('#toWork .btn__arrow');
   document.querySelectorAll('.top .pills a:not(.tg)').forEach((a) => {
@@ -461,14 +465,6 @@
   });
   menu.append(document.querySelector('#contact .btn--yellow').cloneNode(true));
   menu.insertAdjacentHTML('beforeend', '<div class="menu__peek" aria-hidden="true"><img src="assets/cat-head.webp?v=2" alt="" width="440" height="391"></div>');
-  // ТИМЧАСОВО: вибір вигляду меню
-  menu.insertAdjacentHTML('beforeend', '<div class="menu-tmp"><button type="button" class="on" data-v="b">Лінії</button><button type="button" data-v="d">Темний</button></div>');
-  menu.querySelector('.menu-tmp').addEventListener('click', (e) => {
-    const v = e.target.dataset.v;
-    if (!v) return;
-    menu.dataset.v = v;
-    [...e.currentTarget.children].forEach((b) => b.classList.toggle('on', b === e.target));
-  });
   document.body.append(menu);
   function setMenu(open) {
     menu.classList.toggle('on', open);
