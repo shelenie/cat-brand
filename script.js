@@ -71,6 +71,20 @@
     ['auto', SIDE, '290px', 'tl'], ['32%', 'auto', '72px', 'bl'],
   ];
   let lastSpot = 0;
+  // Ширина плашки дорівнює найдовшому рядку тексту
+  function fitBubble() {
+    bubble.style.width = '';
+    if (!matchMedia('(max-width: 900px)').matches) return;
+    bubble.style.transition = 'none'; bubble.style.transform = 'none';
+    const range = document.createRange();
+    range.selectNodeContents(bubble);
+    const line = Math.max(...[...range.getClientRects()].map((r) => r.width));
+    const cs = getComputedStyle(bubble);
+    bubble.style.width = Math.ceil(line + parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight)) + 1 + 'px';
+    bubble.style.transform = '';
+    bubble.offsetWidth;
+    bubble.style.transition = '';
+  }
   function scatterBubble() {
     if (!matchMedia('(max-width: 900px)').matches) return;
     lastSpot = (lastSpot + 1 + Math.floor(Math.random() * (BUBBLE_SPOTS.length - 1))) % BUBBLE_SPOTS.length;
@@ -82,6 +96,7 @@
   function say(text, ms = 2600) {
     scatterBubble();
     bubble.textContent = text;
+    fitBubble();
     bubble.classList.add('on');
     clearTimeout(bubbleTimer);
     bubbleTimer = setTimeout(() => bubble.classList.remove('on'), ms);
@@ -446,6 +461,14 @@
   });
   menu.append(document.querySelector('#contact .btn--yellow').cloneNode(true));
   menu.insertAdjacentHTML('beforeend', '<div class="menu__peek" aria-hidden="true"><img src="assets/cat-head.webp?v=2" alt="" width="440" height="391"></div>');
+  // ТИМЧАСОВО: вибір вигляду меню
+  menu.insertAdjacentHTML('beforeend', '<div class="menu-tmp"><button type="button" class="on" data-v="b">Лінії</button><button type="button" data-v="d">Темний</button></div>');
+  menu.querySelector('.menu-tmp').addEventListener('click', (e) => {
+    const v = e.target.dataset.v;
+    if (!v) return;
+    menu.dataset.v = v;
+    [...e.currentTarget.children].forEach((b) => b.classList.toggle('on', b === e.target));
+  });
   document.body.append(menu);
   function setMenu(open) {
     menu.classList.toggle('on', open);
