@@ -101,8 +101,9 @@ h3 { font-weight: 800; font-size: 23px; line-height: 1.18; margin-bottom: 8px; }
   .cursor { display: block; position: fixed; inset: 0 auto auto 0; z-index: 50; pointer-events: none; }
   .cursor i { position: fixed; left: 0; top: 0; border-radius: 50%; will-change: transform; }
   .cursor__dot { width: 12px; height: 12px; margin: -6px; background: var(--yellow); box-shadow: 0 0 0 1.5px rgba(var(--ink-rgb), .55); }
-  .cursor__ring { width: 56px; height: 56px; margin: -28px; border: 2px solid var(--cream); mix-blend-mode: difference; }
-  .cursor.big .cursor__ring { width: 84px; height: 84px; margin: -42px; }
+  .cursor__ring { width: 56px; height: 56px; margin: -28px; border: 2px solid var(--cream); mix-blend-mode: difference; will-change: translate, scale; transition: scale .2s ease-out; }
+  .cursor.big .cursor__ring { scale: 1.5; }
+  .cursor.on-cat .cursor__ring { mix-blend-mode: normal; border-color: var(--ink); }
 }
 
 /* Кнопка «вгору» зі стрілкою як на головній кнопці */

@@ -136,7 +136,7 @@
 
   /* ---------- Куди дивиться кіт ---------- */
   const pointer = { x: innerWidth * 0.3, y: innerHeight * 0.4, seen: false };
-  let turn = 0, eyeX = 0, petting = false, lastPet = 0;
+  let turn = 0, eyeX = 0, eyeDrawn = '', turnDrawn = '', petting = false, lastPet = 0;
 
   /* ---------- Головний цикл ---------- */
   function frame(now) {
@@ -144,7 +144,11 @@
     const x = pointer.seen ? toSvg(pointer.x, pointer.y).x : 695 + Math.sin(now / 1700) * 500;
     const dx = x - 695;
     eyeX += (Math.sign(dx) * 5.5 * Math.min(1, Math.abs(dx) / 340) - eyeX) * 0.12;
-    pupils.forEach((el) => el.setAttribute('transform', 'translate(' + eyeX.toFixed(2) + ' 0)'));
+    const eyeNow = eyeX.toFixed(1);
+    if (eyeNow !== eyeDrawn) {
+      eyeDrawn = eyeNow;
+      pupils.forEach((el) => el.setAttribute('transform', 'translate(' + eyeNow + ' 0)'));
+    }
 
     // Стрілка в колі дивиться на курсор
     if (pointer.seen) {
@@ -152,7 +156,8 @@
       if (r.width) {
         const want = Math.atan2(pointer.y - r.top - r.height / 2, pointer.x - r.left - r.width / 2) * 180 / Math.PI;
         turn += (((want - turn + 540) % 360) - 180) * 0.14;
-        arrow.style.setProperty('--turn', turn.toFixed(1) + 'deg');
+        const turnNow = turn.toFixed(1);
+        if (turnNow !== turnDrawn) { turnDrawn = turnNow; arrow.style.setProperty('--turn', turnNow + 'deg'); }
       }
     }
 
@@ -173,6 +178,7 @@
     petting = e.pointerType === 'mouse' && !!e.target.closest?.('#zones > *');
     dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     cursor.classList.toggle('big', !!e.target.closest?.('a, button, #zones > *'));
+    cursor.classList.toggle('on-cat', petting);
   }, { passive: true });
   if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
     document.documentElement.style.cursor = 'none';
@@ -182,7 +188,7 @@
     (function follow() {
       ringPos.x += (pointer.x - ringPos.x) * 0.16;
       ringPos.y += (pointer.y - ringPos.y) * 0.16;
-      ring.style.transform = `translate(${ringPos.x}px, ${ringPos.y}px)`;
+      ring.style.translate = `${ringPos.x.toFixed(1)}px ${ringPos.y.toFixed(1)}px`;
       requestAnimationFrame(follow);
     })();
   }
